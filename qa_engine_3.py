@@ -44,36 +44,36 @@ st.set_page_config(
 # Add custom CSS for better styling
 st.markdown("""
 <style>
-    .score-excellent { color: ##e0ffe0; } 
-    .score-good { color: ##cee6ff; }
+    .score-excellent { color: #e0ffe0; } 
+    .score-good { color: #cee6ff; }
     .score-needs-improvement { color: #ffd39d; }
     .score-poor { color: #ffc6c6; }
     
     .score-box {
         padding: 20px;
         border-radius: 10px;
-        color: white;
+        color: 333333;
         text-align: center;
         margin-bottom: 20px;
     }
     
     .score-box-excellent {
-        background-color: #90EE90; /* Light green */
+        background-color: #e0ffe0; /* Light green */
         border-left: 5px solid #006400;
     }
     
     .score-box-good {
-        background-color: #ADD8E6; /* Light blue */
+        background-color: #cee6ff; /* Light blue */
         border-left: 5px solid #0000CD;
     }
     
     .score-box-needs-improvement {
-        background-color: #FFDEAD; /* Light orange */
+        background-color: #ffd39d; /* Light orange */
         border-left: 5px solid #FF8C00;
     }
     
     .score-box-poor {
-        background-color: #FFC0CB; /* Light red */
+        background-color: #ffc6c6; /* Light red */
         border-left: 5px solid #8B0000;
     }
     
@@ -687,11 +687,11 @@ def visualize_results(result, rules):
     smiley = "😀" if overall_score >= 85 else "🙂" if overall_score >= 70 else "😐" if overall_score >= 50 else "😟"
     
     st.markdown(
-        f"<div class='score-box {color_class}'>"
-        f"<h2>Overall Score: {overall_score:.2f} {smiley}</h2>"
-        f"<p style='font-size:18px;'>Quality Level: {quality_level}</p>"
-        f"</div>",
-        unsafe_allow_html=True
+    f"<div class='score-box {color_class}'>"
+    f"<h2 style='color:#333333;'>Overall Score: {overall_score:.2f} {smiley}</h2>"
+    f"<p style='font-size:18px; color:#333333;'>Quality Level: {quality_level}</p>"
+    f"</div>",
+    unsafe_allow_html=True
     )
     
     # Display language information
