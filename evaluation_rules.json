@@ -1,0 +1,194 @@
+{
+  "parameters": [
+    {
+      "name": "Clarity & Professionalism",
+      "description": "Responses are clear, well-structured, and professional. Avoids unnecessary jargon.",
+      "weight": 0.5,
+      "category": "Communication & Language",
+      "guidelines": [
+        "Must include a greeting that aligns with Pepperstone branding."
+      ]
+    },
+    {
+      "name": "Grammar & Spelling",
+      "description": "No typos or grammatical errors. Uses correct terminology.",
+      "weight": 0.5,
+      "category": "Communication & Language",
+      "guidelines": [
+        "If any of the three mistakes above occur, this attribute is considered a Fail.",
+        "Lack of punctuation marks is also considered poor spelling.",
+        "The first letter of a sentence must be capitalized.",
+        "A period (.) is required at the end of a sentence.",
+        "A question mark (?) must be used for interrogative sentences."
+      ]
+    },
+    {
+      "name": "Tone & Empathy",
+      "description": "Maintains a polite, friendly, and appropriate tone. Shows empathy in relevant situations.",
+      "weight": 1.0,
+      "category": "Communication & Language",
+      "guidelines": [
+        "Empathy Must be shown when the customer faces issues or feels frustrated."
+      ]
+    },
+    {
+      "name": "Active Listening & Understanding",
+      "description": "Acknowledges client concerns and provides relevant, personalized Responses instead of generic ones.",
+      "weight": 0.5,
+      "category": "Communication & Language",
+      "guidelines": [
+        "If a CS agent overlooks the customer's question or issue and asks again, it is considered a failure in Active Listening."
+      ]
+    },
+    {
+      "name": "Accuracy of Response",
+      "description": "Information provided is factually correct and aligns with company policies & trading regulations.",
+      "weight": 1.5,
+      "category": "Accuracy & Compliance",
+      "guidelines": [
+        "Respond to all inquiries and requests, any missing questions which have not addressed will be deducted 5%"
+      ]
+    },
+    {
+      "name": "Compliance with Internal & Regulatory Policies",
+      "description": "Adheres to internal guidelines, AML/KYC requirements, and financial industry regulations.",
+      "weight": 1.0,
+      "category": "Accuracy & Compliance",
+      "guidelines": [
+        "Before providing any account-related information, CS must complete the identification process based on low-risk or high-risk categories.",
+        "Cannot share one client's information with another (except when an IB inquires about their downline, following the process)."
+      ]
+    },
+    {
+      "name": "Probing & Clarification",
+      "description": "Uses effective probing questions to identify the client's issue accurately.",
+      "weight": 0.5,
+      "category": "Issue Identification & Troubleshooting",
+      "guidelines": [
+        "Uses effective probing questions to identify the client's issue accurately."
+      ]
+    },
+    {
+      "name": "Troubleshooting",
+      "description": "Provides appropriate troubleshooting based on understanding the issue; basic troubleshooting must be completed before escalation.",
+      "weight": 0.5,
+      "category": "Issue Identification & Troubleshooting",
+      "guidelines": [
+        "Provides appropriate troubleshooting based on understanding the issue; basic troubleshooting must be completed before escalation."
+      ]
+    },
+    {
+      "name": "Escalation Process",
+      "description": "Escalates complex cases correctly and follows escalation protocols.",
+      "weight": 1.0,
+      "category": "Issue Identification & Troubleshooting",
+      "guidelines": [
+        "Escalates complex cases correctly and follows escalation protocols."
+      ]
+    },
+    {
+      "name": "Response Time",
+      "description": "Meets SLA for first response and follow-ups.",
+      "weight": 1.0,
+      "category": "Efficiency & Responsiveness",
+      "guidelines": [
+        "90 second for first time response in chat",
+        "3 hour (Premium Client), 5 hours (Normal Clients) for email for first time response in email.",
+        "Email follow up should be done after 24 hours if client has no reply on required information to proceed support."
+      ]
+    },
+    {
+      "name": "Handling Time",
+      "description": "Resolves issues efficiently without unnecessary delays.",
+      "weight": 1.0,
+      "category": "Efficiency & Responsiveness",
+      "guidelines": [
+        "Basic inquiries: Maximum 2 holds (3-5 mins each), total hold time ≤10 mins.",
+        "Complex inquiries/issues: Maximum 3 holds, total hold time ≤15 mins.",
+        "If unresolved within 15 mins, follow up via email."
+      ]
+    },
+    {
+      "name": "Chat Documentation",
+      "description": "Logs key details accurately in internal note (if needed) for future reference.",
+      "weight": 0.5,
+      "category": "Documentation & Reporting",
+      "guidelines": [
+        "Logs key details accurately in internal note (if needed) for future reference."
+      ]
+    },
+    {
+      "name": "Tagging & Categorization",
+      "description": "Uses the correct tags or categories for accurate reporting and case tracking.",
+      "weight": 0.5,
+      "category": "Documentation & Reporting",
+      "guidelines": [
+        "Uses the correct tags or categories for accurate reporting and case tracking."
+      ]
+    }
+  ],
+  "score_ranges": {
+    "excellent": {
+      "min": 8.5,
+      "max": 10,
+      "description": "Exceptional service that exceeded expectations"
+    },
+    "good": {
+      "min": 7.0,
+      "max": 8.4,
+      "description": "Solid service meeting all requirements"
+    },
+    "fair": {
+      "min": 5.0,
+      "max": 6.9,
+      "description": "Adequate service with notable room for improvement"
+    },
+    "poor": {
+      "min": 0,
+      "max": 4.9,
+      "description": "Inadequate service requiring significant improvement"
+    }
+  },
+  "categories": [
+    {
+      "name": "Communication & Language",
+      "parameters": [
+        "Clarity & Professionalism",
+        "Grammar & Spelling",
+        "Tone & Empathy",
+        "Active Listening & Understanding"
+      ]
+    },
+    {
+      "name": "Accuracy & Compliance",
+      "parameters": [
+        "Accuracy of Response",
+        "Compliance with Internal & Regulatory Policies"
+      ]
+    },
+    {
+      "name": "Issue Identification & Troubleshooting",
+      "parameters": [
+        "Probing & Clarification",
+        "Troubleshooting",
+        "Escalation Process"
+      ]
+    },
+    {
+      "name": "Efficiency & Responsiveness",
+      "parameters": [
+        "Response Time",
+        "Handling Time"
+      ]
+    },
+    {
+      "name": "Documentation & Reporting",
+      "parameters": [
+        "Chat Documentation",
+        "Tagging & Categorization"
+      ]
+    }
+  ],
+  "version": "2.0",
+  "last_updated": "2025-03-06"
+}

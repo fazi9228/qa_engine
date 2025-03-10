@@ -1,0 +1,86 @@
+{
+  "scoring_system": {
+    "calculation_method": "weighted_average",
+    "score_scale": {
+      "min": 0,
+      "max": 100,
+      "increments": 1
+    },
+    "quality_levels": [
+      {
+        "name": "Excellent",
+        "range": {
+          "min": 85,
+          "max": 100
+        },
+        "description": "Exceptional service that exceeded expectations",
+        "action_required": "Recognition and positive feedback"
+      },
+      {
+        "name": "Good",
+        "range": {
+          "min": 70,
+          "max": 84
+        },
+        "description": "Solid service meeting all requirements",
+        "action_required": "Minor improvements in specific areas"
+      },
+      {
+        "name": "Fair",
+        "range": {
+          "min": 50,
+          "max": 69
+        },
+        "description": "Adequate service with notable room for improvement",
+        "action_required": "Targeted training in specific areas"
+      },
+      {
+        "name": "Poor",
+        "range": {
+          "min": 0,
+          "max": 49
+        },
+        "description": "Inadequate service requiring significant improvement",
+        "action_required": "Comprehensive training and close monitoring"
+      }
+    ],
+    "critical_failures": [
+      {
+        "name": "Compliance Violation",
+        "description": "Any violation of compliance requirements, including KYC/AML protocols",
+        "impact": "Automatic failure regardless of other scores"
+      },
+      {
+        "name": "Customer Data Breach",
+        "description": "Sharing customer information without proper authorization",
+        "impact": "Automatic failure regardless of other scores"
+      },
+      {
+        "name": "Misrepresentation",
+        "description": "Providing false information about company policies or products",
+        "impact": "Automatic failure regardless of other scores"
+      }
+    ],
+    "scoring_guidelines": [
+      "Each parameter is scored on a scale of 1-10",
+      "Scores are multiplied by the parameter weight to get weighted scores",
+      "The final score is the sum of all weighted scores divided by the sum of all weights",
+      "Critical failures override the calculated score",
+      "Partial scores can be awarded for parameters that are partially met"
+    ],
+    "improvement_process": {
+      "score_below_50": {
+        "immediate_action": "Performance improvement plan",
+        "follow_up": "Weekly review for 4 weeks"
+      },
+      "score_50_to_70": {
+        "immediate_action": "Targeted training",
+        "follow_up": "Bi-weekly review for 1 month"
+      },
+      "score_above_70": {
+        "immediate_action": "Feedback on specific improvement areas",
+        "follow_up": "Monthly review"
+      }
+    }
+  }
+}
