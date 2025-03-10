@@ -44,10 +44,10 @@ st.set_page_config(
 # Add custom CSS for better styling
 st.markdown("""
 <style>
-    .score-excellent { color: green; }
-    .score-good { color: blue; }
-    .score-needs-improvement { color: orange; }
-    .score-poor { color: red; }
+    .score-excellent { color: ##e0ffe0; } 
+    .score-good { color: ##cee6ff; }
+    .score-needs-improvement { color: #ffd39d; }
+    .score-poor { color: #ffc6c6; }
     
     .score-box {
         padding: 20px;
@@ -55,6 +55,45 @@ st.markdown("""
         color: white;
         text-align: center;
         margin-bottom: 20px;
+    }
+    
+    .score-box-excellent {
+        background-color: #90EE90; /* Light green */
+        border-left: 5px solid #006400;
+    }
+    
+    .score-box-good {
+        background-color: #ADD8E6; /* Light blue */
+        border-left: 5px solid #0000CD;
+    }
+    
+    .score-box-needs-improvement {
+        background-color: #FFDEAD; /* Light orange */
+        border-left: 5px solid #FF8C00;
+    }
+    
+    .score-box-poor {
+        background-color: #FFC0CB; /* Light red */
+        border-left: 5px solid #8B0000;
+    }
+    
+    /* Progress stages styling */
+    .progress-stage {
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+        font-size: 14px;
+    }
+    
+    .progress-stage-active {
+        background-color: #e6f3ff;
+        border-left: 3px solid #2196F3;
+    }
+    
+    .progress-stage-completed {
+        background-color: #e8f5e9;
+        border-left: 3px solid #4CAF50;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -86,13 +125,15 @@ def get_api_key(provider="anthropic"):
         if api_key:
             return api_key
     
-    # Check Streamlit secrets (for cloud deployment)
+    # Check Streamlit secrets (for deployment)
     try:
+        # Use the in operator to check if the key exists
         if provider in st.secrets:
-            api_key = st.secrets[provider]["api_key"]
-            if api_key:
-                return api_key
-    except Exception:
+            if "api_key" in st.secrets[provider]:
+                api_key = st.secrets[provider]["api_key"]
+                if api_key:
+                    return api_key
+    except:
         # Silently continue if secrets aren't available
         pass
     
@@ -139,11 +180,23 @@ def check_password():
     """
     Returns `True` if the user had the correct password.
     """
-    # Load password from .env file or environment variables
+    # Load password from environment variables or secrets
+    correct_password = None
+    
+    # Try from environment variables first
     correct_password = os.getenv("QA_PASSWORD")
     
+    # If not found in environment, try getting from secrets
     if not correct_password:
-        st.error("No password set in environment variables. Set QA_PASSWORD in .env file.")
+        try:
+            # Access secrets in a way that won't trigger unnecessary warnings
+            if "QA_PASSWORD" in st.secrets:
+                correct_password = st.secrets["QA_PASSWORD"]
+        except:
+            pass
+    
+    if not correct_password:
+        st.error("No password set. Configure QA_PASSWORD in environment variables or Streamlit secrets.")
         return False
     
     # Create a session state object if it doesn't exist yet
@@ -163,7 +216,7 @@ def check_password():
     if password:
         if password == correct_password:
             st.session_state.password_entered = True
-            st.rerun()  # Changed from st.experimental_rerun()
+            st.rerun()
             return True
         else:
             st.session_state.password_attempts += 1
@@ -175,8 +228,8 @@ def check_password():
             return False
     else:
         return False
-
-# Helper function to parse JSON from API responses with better error handling
+    
+    # Helper function to parse JSON from API responses with better error handling
 def parse_json_response(response_text):
     """Parse JSON from API responses with better error handling"""
     try:
@@ -336,6 +389,32 @@ def load_evaluation_rules(file_path="evaluation_rules.json", scoring_path="scori
         # Require evaluation rules file
         st.error(f"Evaluation rules file '{file_path}' not found.")
         st.stop()
+
+def convert_score(score, from_scale, to_scale):
+    """
+    Convert a score from one scale to another
+    
+    Args:
+        score (float): The score to convert
+        from_scale (tuple): The source scale as (min, max)
+        to_scale (tuple): The target scale as (min, max)
+    
+    Returns:
+        float: The converted score
+    """
+    from_min, from_max = from_scale
+    to_min, to_max = to_scale
+    
+    # Ensure score is within source scale bounds
+    score = max(from_min, min(score, from_max))
+    
+    # Convert to percentage within source scale
+    percentage = (score - from_min) / (from_max - from_min)
+    
+    # Apply percentage to target scale
+    converted = to_min + percentage * (to_max - to_min)
+    
+    return converted
 
 # Function to analyze a transcript with cultural considerations
 def analyze_transcript(transcript, rules, target_language="en", prompt_template_path="QA_prompt.md", model_provider="anthropic", model_name=None):
@@ -560,39 +639,13 @@ Include suggestion only when score is below 80, otherwise set to null.
         st.exception(e)  # Show the full exception for debugging
         return None
     
-def convert_score(score, from_scale, to_scale):
-    """
-    Convert a score from one scale to another
-    
-    Args:
-        score (float): The score to convert
-        from_scale (tuple): The source scale as (min, max)
-        to_scale (tuple): The target scale as (min, max)
-    
-    Returns:
-        float: The converted score
-    """
-    from_min, from_max = from_scale
-    to_min, to_max = to_scale
-    
-    # Ensure score is within source scale bounds
-    score = max(from_min, min(score, from_max))
-    
-    # Convert to percentage within source scale
-    percentage = (score - from_min) / (from_max - from_min)
-    
-    # Apply percentage to target scale
-    converted = to_min + percentage * (to_max - to_min)
-    
-    return converted
-
 # Function to visualize results
 # Function to visualize results
 def visualize_results(result, rules):
     if not result:
         return
     
-    # Display the overall score with a light gray color
+    # Display the overall score with appropriate color based on quality level
     overall_score = result.get('weighted_overall_score', 0)
     
     # Determine quality level based on score ranges
@@ -621,16 +674,22 @@ def visualize_results(result, rules):
         else:
             quality_level = "Poor"
     
-    # Use a light gray color
-    color = "#e0e0e0"  # Light gray color
+    # Set color class based on quality level
+    color_class = "score-box-needs-improvement"  # Default
+    if "excellent" in quality_level.lower():
+        color_class = "score-box-excellent"
+    elif "good" in quality_level.lower():
+        color_class = "score-box-good"
+    elif "poor" in quality_level.lower():
+        color_class = "score-box-poor"
     
-    # Add smiley based on score (only for overall score)
+    # Add smiley based on score
     smiley = "😀" if overall_score >= 85 else "🙂" if overall_score >= 70 else "😐" if overall_score >= 50 else "😟"
     
     st.markdown(
-        f"<div class='score-box' style='background-color:{color};'>"
-        f"<h2 style='color:#333333;'>Overall Score: {overall_score:.2f} {smiley}</h2>"
-        f"<p style='font-size:18px; color:#333333;'>Quality Level: {quality_level}</p>"
+        f"<div class='score-box {color_class}'>"
+        f"<h2>Overall Score: {overall_score:.2f} {smiley}</h2>"
+        f"<p style='font-size:18px;'>Quality Level: {quality_level}</p>"
         f"</div>",
         unsafe_allow_html=True
     )
@@ -670,15 +729,6 @@ def visualize_results(result, rules):
     # The CSV part remains mostly the same, but let's ensure UTF-8 there too
     with col2:
         # Ensure CSV is also properly encoded
-        csv_data = "Parameter,Score,Has Suggestion\n"
-        for param in rules["parameters"]:
-            param_name = param["name"]
-            if param_name in result and isinstance(result[param_name], dict):
-                score = result[param_name].get("score", "N/A")
-                has_suggestion = "Yes" if result[param_name].get("suggestion") else "No"
-                csv_data += f'"{param_name}",{score},{has_suggestion}\n'
-        
-        # Convert to bytes with UTF-8 encoding
         csv_bytes = csv_data.encode('utf-8')
         
         st.download_button(
@@ -757,7 +807,6 @@ def visualize_results(result, rules):
                 st.warning(f"No score available for: {param_name}")
                 st.markdown("---")
                 
-# Main application
 # Main application
 def main():
     # First check password before showing any app content
@@ -946,73 +995,100 @@ def main():
 
         prompt_path = "QA_prompt.md"  # Required file, no fallback
 
+                
         if st.button("Analyze Transcript", key="analyze_single"):
             if not single_transcript:
                 st.warning("Please paste a transcript to analyze")
             else:
-                with st.spinner(f"Analyzing transcript with {model_provider}..."):
-                    # Add a debug output for the transcript - in sidebar
-                    if debug_mode:
-                        with st.sidebar:
-                            with st.expander("Debug - Transcript", expanded=False):
-                                st.text(single_transcript[:200] + "..." if len(single_transcript) > 200 else single_transcript)
-                        
-                    # Determine language settings
+                # Create a single progress container instead of multiple placeholders
+                progress_container = st.container()
+                result_container = st.container()
+                
+                # Simple progress bar approach
+                progress_bar = st.progress(0)
+                status_text = st.empty()
+                
+                # Stage 1: Processing transcript
+                status_text.text("Processing transcript...")
+                progress_bar.progress(10)
+                
+                # Add a debug output for the transcript
+                if debug_mode:
+                    with st.sidebar:
+                        with st.expander("Debug - Transcript", expanded=False):
+                            st.text(single_transcript[:200] + "..." if len(single_transcript) > 200 else single_transcript)
+                
+                # Stage 2: Language detection
+                status_text.text("Detecting language...")
+                progress_bar.progress(30)
+                
+                # Determine language settings
+                try:
                     if auto_detect:
-                        try:
-                            lang_code, lang_name = detect_language(single_transcript, provider_internal_name)
-                            # Add detected language to sidebar status instead
-                            with st.sidebar:
-                                with status_expander:
-                                    st.info(f"Detected language: {lang_name}")
-                        except Exception as e:
-                            with st.sidebar:
-                                with status_expander:
-                                    st.error(f"Error detecting language: {str(e)}")
-                            lang_name = "English (default after error)"
+                        lang_code, lang_name = detect_language(single_transcript, provider_internal_name)
+                        # Add detected language to sidebar status
+                        with st.sidebar:
+                            with status_expander:
+                                st.info(f"Detected language: {lang_name}")
                     else:
                         lang_name = transcript_language
                         
+                    progress_bar.progress(50)
+                    
+                    # Stage 3: Analysis
+                    status_text.text(f"Analyzing with {model_provider}...")
+                    
                     # Analyze the transcript using the prompt template
-                    try:
-                        result = analyze_transcript(
-                            single_transcript, 
-                            rules, 
-                            target_language,
-                            prompt_template_path=prompt_path,
-                            model_provider=provider_internal_name,
-                            model_name=model_name
-                        )
-                        
-                        # Store transcript and result in session state to prevent reset on download
-                        st.session_state.current_transcript = single_transcript
-                        st.session_state.current_result = result
-                        
-                    except Exception as analysis_error:
-                        with st.sidebar:
-                            with status_expander:
-                                st.error(f"Error during analysis: {str(analysis_error)}")
-                                if debug_mode:
-                                    st.exception(analysis_error)
-                        result = None
+                    result = analyze_transcript(
+                        single_transcript, 
+                        rules, 
+                        target_language,
+                        prompt_template_path=prompt_path,
+                        model_provider=provider_internal_name,
+                        model_name=model_name
+                    )
+                    
+                    progress_bar.progress(90)
+                    
+                    # Store transcript and result in session state to prevent reset on download
+                    st.session_state.current_transcript = single_transcript
+                    st.session_state.current_result = result
                     
                     # Add language information to result
                     if result:
                         result["detected_language"] = lang_name
-                        # Display visualization
-                        try:
-                            visualize_results(result, rules)
-                        except Exception as viz_error:
-                            with st.sidebar:
-                                with status_expander:
-                                    st.error(f"Error visualizing results: {str(viz_error)}")
-                            st.json(result)  # Just show the raw result
                         
-                        # Show model info in result
-                        st.caption(f"Analysis performed by {result.get('model_provider', provider_internal_name).title()} {result.get('model_name', model_name)}")
+                        # Update progress
+                        progress_bar.progress(100)
+                        status_text.text("Analysis complete!")
+                        
+                        # Display visualization
+                        with result_container:
+                            try:
+                                visualize_results(result, rules)
+                                st.caption(f"Analysis performed by {result.get('model_provider', provider_internal_name).title()} {result.get('model_name', model_name)}")
+                            except Exception as viz_error:
+                                with st.sidebar:
+                                    with status_expander:
+                                        st.error(f"Error visualizing results: {str(viz_error)}")
+                                st.json(result)  # Just show the raw result
                     else:
+                        progress_bar.progress(100)
+                        status_text.text("Analysis failed.")
+                        with result_container:
+                            st.error("Analysis failed. Please check the error messages in the Status Messages section.")
+                            
+                except Exception as e:
+                    progress_bar.progress(100)
+                    status_text.text("Error during processing.")
+                    with st.sidebar:
+                        with status_expander:
+                            st.error(f"Error during processing: {str(e)}")
+                            if debug_mode:
+                                st.exception(e)
+                    with result_container:
                         st.error("Analysis failed. Please check the error messages in the Status Messages section.")
-        
+            
         # Check if we have a stored result from previous analysis
         elif "current_result" in st.session_state and "current_transcript" in st.session_state:
             # Use the stored result
