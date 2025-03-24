@@ -1,0 +1,345 @@
+{
+  "parameters": [
+    {
+      "name": "Vocal Clarity & Articulation",
+      "description": "Speaks clearly with appropriate pace, volume, and pronunciation. Avoids mumbling, speaking too quickly, or using excessive filler words.",
+      "weight": 1.0,
+      "category": "Voice Communication",
+      "guidelines": [
+        "Maintains clear speech throughout the call",
+        "Uses appropriate pace - not too fast or too slow",
+        "Maintains consistent volume (not too loud or too quiet)",
+        "Minimizes filler words (um, uh, like)",
+        "Pronounces financial and technical terms correctly"
+      ]
+    },
+    {
+      "name": "Active Listening",
+      "description": "Demonstrates listening through verbal acknowledgments, appropriate pauses, and relevant follow-up questions that confirm understanding.",
+      "weight": 1.0,
+      "category": "Voice Communication",
+      "guidelines": [
+        "Uses verbal acknowledgments (\"I understand\", \"I see\", etc.)",
+        "Doesn't interrupt customer unnecessarily",
+        "Asks clarifying questions when needed",
+        "Summarizes customer's issue to confirm understanding",
+        "Demonstrates understanding by referring back to customer's statements"
+      ]
+    },
+    {
+      "name": "Tone Management",
+      "description": "Uses appropriate voice tone, adapting to customer's emotional state with suitable empathy, while maintaining professionalism.",
+      "weight": 1.0,
+      "category": "Voice Communication",
+      "guidelines": [
+        "Adjusts tone based on customer's emotional state",
+        "Conveys empathy through voice when appropriate",
+        "Maintains professional tone even during difficult interactions",
+        "Avoids sounding monotone or disinterested",
+        "Uses appropriate voice modulation to emphasize key points"
+      ]
+    },
+    {
+      "name": "Call Flow Management",
+      "description": "Manages call pacing, silence, holds, and transitions effectively, guiding the conversation toward resolution.",
+      "weight": 1.0,
+      "category": "Voice Communication",
+      "guidelines": [
+        "Manages silence appropriately - no awkward long pauses",
+        "Explains holds clearly and provides time estimates",
+        "Transitions between topics smoothly",
+        "Guides conversation toward resolution",
+        "Avoids rushing customer or spending too much time on non-essential matters"
+      ]
+    },
+    {
+      "name": "Clarity & Professionalism",
+      "description": "Responses are clear, well-structured, and professional. Avoids unnecessary jargon.",
+      "weight": 0.5,
+      "category": "Communication & Language",
+      "guidelines": [
+        "Uses appropriate greeting and closing alignment with Pepperstone branding",
+        "Explains concepts clearly without excessive jargon",
+        "Structures responses logically",
+        "Speaks with confidence and authority on Pepperstone services"
+      ]
+    },
+    {
+      "name": "Tone & Empathy",
+      "description": "Maintains a polite, friendly, and appropriate tone. Shows empathy in relevant situations.",
+      "weight": 1.0,
+      "category": "Communication & Language",
+      "guidelines": [
+        "Shows empathy when customer faces issues or expresses frustration",
+        "Adapts tone based on customer's mood and situation",
+        "Remains calm and composed even during difficult interactions",
+        "Uses appropriate language for showing understanding"
+      ]
+    },
+    {
+      "name": "Active Listening & Understanding",
+      "description": "Acknowledges client concerns and provides relevant, personalized responses instead of generic ones.",
+      "weight": 0.5,
+      "category": "Communication & Language",
+      "guidelines": [
+        "Demonstrates understanding of customer's specific situation",
+        "Doesn't ask the customer to repeat information unnecessarily",
+        "Provides personalized responses rather than generic scripts",
+        "Addresses all points raised by the customer"
+      ]
+    },
+    {
+      "name": "Accuracy of Response",
+      "description": "Information provided is factually correct and aligns with company policies & trading regulations.",
+      "weight": 1.5,
+      "category": "Accuracy & Compliance",
+      "guidelines": [
+        "Provides accurate information about Pepperstone products and services",
+        "Doesn't make claims that contradict company policies",
+        "Responds to all customer inquiries correctly",
+        "Avoids providing misleading information"
+      ]
+    },
+    {
+      "name": "Compliance with Internal & Regulatory Policies",
+      "description": "Adheres to internal guidelines, AML/KYC requirements, and financial industry regulations.",
+      "weight": 1.0,
+      "category": "Accuracy & Compliance",
+      "guidelines": [
+        "Completes identification verification before sharing account information",
+        "Follows proper protocols for high-risk activities",
+        "Avoids making investment recommendations",
+        "Maintains customer privacy and data security",
+        "Follows all relevant financial regulations in verbal communications"
+      ]
+    },
+    {
+      "name": "Probing & Clarification",
+      "description": "Uses effective probing questions to identify the client's issue accurately.",
+      "weight": 0.5,
+      "category": "Issue Identification & Troubleshooting",
+      "guidelines": [
+        "Asks relevant questions to understand the issue fully",
+        "Uses both open and closed questions appropriately",
+        "Clarifies ambiguous information",
+        "Adjusts questioning based on customer responses"
+      ]
+    },
+    {
+      "name": "Troubleshooting",
+      "description": "Provides appropriate troubleshooting based on understanding the issue; basic troubleshooting must be completed before escalation.",
+      "weight": 0.5,
+      "category": "Issue Identification & Troubleshooting",
+      "guidelines": [
+        "Follows logical troubleshooting steps",
+        "Explains troubleshooting process to the customer",
+        "Completes basic troubleshooting before escalation",
+        "Uses available tools and resources effectively"
+      ]
+    },
+    {
+      "name": "Escalation Process",
+      "description": "Escalates complex cases correctly and follows escalation protocols.",
+      "weight": 1.0,
+      "category": "Issue Identification & Troubleshooting",
+      "guidelines": [
+        "Identifies correctly when escalation is needed",
+        "Follows proper escalation procedures",
+        "Explains escalation process to customer",
+        "Provides appropriate handover information when escalating"
+      ]
+    },
+    {
+      "name": "Call Handling Time",
+      "description": "Resolves issues efficiently without unnecessary delays or rushed conclusions.",
+      "weight": 1.0,
+      "category": "Efficiency & Responsiveness",
+      "guidelines": [
+        "Basic inquiries: Maximum 2 holds (3-5 mins each), total hold time ≤10 mins",
+        "Complex inquiries: Maximum 3 holds, total hold time ≤15 mins",
+        "Uses time efficiently without rushing customer",
+        "Balances thoroughness with appropriate call duration"
+      ]
+    },
+    {
+      "name": "Call Documentation",
+      "description": "Logs key details accurately in internal systems for future reference.",
+      "weight": 0.5,
+      "category": "Documentation & Reporting",
+      "guidelines": [
+        "Documents key information discussed during call",
+        "Records actions taken to resolve issue",
+        "Notes any follow-up tasks or commitments",
+        "Creates clear, concise, and accurate call summary"
+      ]
+    },
+    {
+      "name": "Tagging & Categorization",
+      "description": "Uses the correct tags or categories for accurate reporting and case tracking.",
+      "weight": 0.5,
+      "category": "Documentation & Reporting",
+      "guidelines": [
+        "Applies correct call type categorization",
+        "Uses appropriate issue tags",
+        "Identifies and tags priority level correctly",
+        "Links related cases where applicable"
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "name": "Voice Communication",
+      "parameters": [
+        "Vocal Clarity & Articulation",
+        "Active Listening",
+        "Tone Management",
+        "Call Flow Management"
+      ]
+    },
+    {
+      "name": "Communication & Language",
+      "parameters": [
+        "Clarity & Professionalism",
+        "Tone & Empathy",
+        "Active Listening & Understanding"
+      ]
+    },
+    {
+      "name": "Accuracy & Compliance",
+      "parameters": [
+        "Accuracy of Response",
+        "Compliance with Internal & Regulatory Policies"
+      ]
+    },
+    {
+      "name": "Issue Identification & Troubleshooting",
+      "parameters": [
+        "Probing & Clarification",
+        "Troubleshooting",
+        "Escalation Process"
+      ]
+    },
+    {
+      "name": "Efficiency & Responsiveness",
+      "parameters": [
+        "Call Handling Time"
+      ]
+    },
+    {
+      "name": "Documentation & Reporting",
+      "parameters": [
+        "Call Documentation",
+        "Tagging & Categorization"
+      ]
+    }
+  ],
+  "scoring_system": {
+    "score_scale": {
+      "min": 0,
+      "max": 100
+    },
+    "quality_levels": [
+      {
+        "name": "Excellent",
+        "range": {
+          "min": 85,
+          "max": 100
+        },
+        "description": "Exceptional service that exceeded expectations",
+        "action_required": "Recognition and positive feedback"
+      },
+      {
+        "name": "Good",
+        "range": {
+          "min": 70,
+          "max": 84
+        },
+        "description": "Solid service meeting all requirements",
+        "action_required": "Minor improvements in specific areas"
+      },
+      {
+        "name": "Fair",
+        "range": {
+          "min": 50,
+          "max": 69
+        },
+        "description": "Adequate service with notable room for improvement",
+        "action_required": "Targeted training in specific areas"
+      },
+      {
+        "name": "Poor",
+        "range": {
+          "min": 0,
+          "max": 49
+        },
+        "description": "Inadequate service requiring significant improvement",
+        "action_required": "Comprehensive training and close monitoring"
+      }
+    ],
+    "critical_failures": [
+      {
+        "name": "Compliance Violation",
+        "description": "Any violation of compliance requirements, including KYC/AML protocols",
+        "impact": "Automatic failure regardless of other scores"
+      },
+      {
+        "name": "Customer Data Breach",
+        "description": "Sharing customer information without proper verification",
+        "impact": "Automatic failure regardless of other scores"
+      },
+      {
+        "name": "Misrepresentation",
+        "description": "Providing false information about company policies or products",
+        "impact": "Automatic failure regardless of other scores"
+      },
+      {
+        "name": "Inappropriate Tone",
+        "description": "Using rude, dismissive, or unprofessional tone with customer",
+        "impact": "Automatic failure regardless of other scores"
+      }
+    ]
+  },
+  "voice_quality_parameters": {
+    "metrics": [
+      {
+        "name": "Audio Clarity",
+        "description": "The overall clarity of the agent's voice and audio connection"
+      },
+      {
+        "name": "Background Noise",
+        "description": "Level of background noise present during the call"
+      },
+      {
+        "name": "Volume Consistency",
+        "description": "Consistency of volume levels throughout the call"
+      },
+      {
+        "name": "Call Connection Quality",
+        "description": "Quality of the connection without drops or significant static"
+      }
+    ],
+    "thresholds": {
+      "excellent": {
+        "min_score": 90,
+        "requirements": [
+          "Crystal clear agent audio with minimal to no background noise",
+          "Consistent volume levels throughout",
+          "No connection issues or drops",
+          "Professional call environment"
+        ]
+      },
+      "poor": {
+        "max_score": 50,
+        "indicators": [
+          "Significant static or distortion in agent audio",
+          "Loud background noise that interferes with communication",
+          "Significant volume inconsistencies",
+          "Call drops or connection issues",
+          "Unprofessional call environment (loud colleagues, music, etc.)"
+        ]
+      }
+    }
+  },
+  "version": "1.0",
+  "last_updated": "2025-03-12"
+}

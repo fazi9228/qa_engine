@@ -6,7 +6,11 @@
       "weight": 0.5,
       "category": "Communication & Language",
       "guidelines": [
-        "Must include a greeting that aligns with Pepperstone branding."
+        "Must include a greeting that aligns with Pepperstone branding.",
+        "Greeting includes 'Thank you for contacting Pepperstone,' agent name, and an offer to assist (e.g., 'Thank you for contacting Pepperstone. I'm Doris, how may I assist you today?')",
+        "Greeting is polite but lacks full branding (e.g., 'Hello, I'm Doris. How may I help you today?')",
+        "Greeting is too short or generic (e.g., 'How may I support you?')",
+        "No greeting at all."
       ]
     },
     {
@@ -19,7 +23,10 @@
         "Lack of punctuation marks is also considered poor spelling.",
         "The first letter of a sentence must be capitalized.",
         "A period (.) is required at the end of a sentence.",
-        "A question mark (?) must be used for interrogative sentences."
+        "A question mark (?) must be used for interrogative sentences.",
+        "Spelling errors in native language (e.g., 'Xin Chào' written as 'Xin Chòa') count as one mistake.",
+        "If CS realizes they made a spelling mistake, apologizes to the customer, and corrects it, the mistake can be skipped (Punctuation errors cannot be corrected).",
+        "1–3 mistakes: Full score. From 4 and above mistakes: Fail."
       ]
     },
     {
@@ -28,7 +35,10 @@
       "weight": 1.0,
       "category": "Communication & Language",
       "guidelines": [
-        "Empathy Must be shown when the customer faces issues or feels frustrated."
+        "Empathy Must be shown when the customer faces issues or feels frustrated.",
+        "Example of Empathy: 'I completely understand how frustrating this must be, and I sincerely apologize for the delay. Let me check the status for you right away.'",
+        "Balanced tone between formal and conversational.",
+        "Avoid overly direct or informal responses (e.g., 'Send me the details, and I will check.' or 'Hey there! No worries, I’ll check for you now.')"
       ]
     },
     {
@@ -37,7 +47,9 @@
       "weight": 0.5,
       "category": "Communication & Language",
       "guidelines": [
-        "If a CS agent overlooks the customer's question or issue and asks again, it is considered a failure in Active Listening."
+        "If a CS agent overlooks the customer's question or issue and asks again, it is considered a failure in Active Listening.",
+        "The customer asked two questions but the agent only responded to one.",
+        "If agent does not fail active listening as mentioned above, get full score."
       ]
     },
     {
@@ -46,7 +58,9 @@
       "weight": 1.5,
       "category": "Accuracy & Compliance",
       "guidelines": [
-        "Respond to all inquiries and requests, any missing questions which have not addressed will be deducted 5%"
+        "Respond to all inquiries and requests; any missing questions which have not addressed will be deducted 5%.",
+        "Verify facts against authoritative sources (e.g., central bank announcements, economic data releases).",
+        "Ensure technical analysis (e.g., support/resistance levels) aligns with standard conventions."
       ]
     },
     {
@@ -56,6 +70,8 @@
       "category": "Accuracy & Compliance",
       "guidelines": [
         "Before providing any account-related information, CS must complete the identification process based on low-risk or high-risk categories.",
+        "For low-risk questions: The agent verifies the customer using an SMS code.",
+        "For high-risk & maximum risk questions: The agent verifies the customer using three methods—SMS code confirmation, date of birth, and username.",
         "Cannot share one client's information with another (except when an IB inquires about their downline, following the process)."
       ]
     },
@@ -65,7 +81,8 @@
       "weight": 0.5,
       "category": "Issue Identification & Troubleshooting",
       "guidelines": [
-        "Uses effective probing questions to identify the client's issue accurately."
+        "Uses effective probing questions to identify the client's issue accurately.",
+        "Examples of probing questions: 'Could you confirm the transaction ID?', 'Can you specify the exact issue you’re facing?'"
       ]
     },
     {
@@ -74,7 +91,8 @@
       "weight": 0.5,
       "category": "Issue Identification & Troubleshooting",
       "guidelines": [
-        "Provides appropriate troubleshooting based on understanding the issue; basic troubleshooting must be completed before escalation."
+        "Basic troubleshooting steps must be completed before escalating the issue.",
+        "Example: 'Let me check your account details and verify if everything is in order.'"
       ]
     },
     {
@@ -83,7 +101,8 @@
       "weight": 1.0,
       "category": "Issue Identification & Troubleshooting",
       "guidelines": [
-        "Escalates complex cases correctly and follows escalation protocols."
+        "Escalates complex cases correctly and follows escalation protocols.",
+        "Ensure proper documentation and tagging before escalating."
       ]
     },
     {
@@ -92,9 +111,9 @@
       "weight": 1.0,
       "category": "Efficiency & Responsiveness",
       "guidelines": [
-        "90 second for first time response in chat",
-        "3 hour (Premium Client), 5 hours (Normal Clients) for email for first time response in email.",
-        "Email follow up should be done after 24 hours if client has no reply on required information to proceed support."
+        "90 seconds for first-time response in chat.",
+        "3 hours (Premium Client), 5 hours (Normal Clients) for email for first-time response in email.",
+        "Email follow-up should be done after 24 hours if the client has no reply on required information to proceed support."
       ]
     },
     {
@@ -103,7 +122,7 @@
       "weight": 1.0,
       "category": "Efficiency & Responsiveness",
       "guidelines": [
-        "Basic inquiries: Maximum 2 holds (3-5 mins each), total hold time ≤10 mins.",
+        "Basic inquiries: Maximum 2 holds (3–5 mins each), total hold time ≤10 mins.",
         "Complex inquiries/issues: Maximum 3 holds, total hold time ≤15 mins.",
         "If unresolved within 15 mins, follow up via email."
       ]
@@ -114,7 +133,8 @@
       "weight": 0.5,
       "category": "Documentation & Reporting",
       "guidelines": [
-        "Logs key details accurately in internal note (if needed) for future reference."
+        "Logs key details accurately in internal notes for future reference.",
+        "Include timestamps, customer queries, and resolutions."
       ]
     },
     {
@@ -123,7 +143,8 @@
       "weight": 0.5,
       "category": "Documentation & Reporting",
       "guidelines": [
-        "Uses the correct tags or categories for accurate reporting and case tracking."
+        "Uses the correct tags or categories for accurate reporting and case tracking.",
+        "Examples of tags: 'Withdrawal Issue', 'Login Problem', 'Trade Execution Query'."
       ]
     }
   ],
@@ -190,5 +211,5 @@
     }
   ],
   "version": "2.0",
-  "last_updated": "2025-03-06"
+  "last_updated": "2025-03-18"
 }
