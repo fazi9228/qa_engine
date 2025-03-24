@@ -6,3 +6,7 @@ numpy
 matplotlib
 seaborn
 python-dotenv
+pydub
+python-docx
+PyPDF2
+python-dateutil
