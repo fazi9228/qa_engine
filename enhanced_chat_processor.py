@@ -253,18 +253,34 @@ class EnhancedChatProcessor:
         return chats
 
     def _extract_chat_id(self, chat_text: str) -> Optional[str]:
-        """Extract chat ID from chat text."""
+        """Extract chat ID from chat text and detect/fix duplicated numbers."""
         patterns = [
             r"(?:^|\s)Chat\s+(?:ID\s*:?\s*)?(\d+)(?!\d)",  # Match "Chat 01271153"
             r"(?:^|\s)Chat\s*#\s*(\d+)(?!\d)",             # Match "Chat #01271153"
             r"^[A-Z]{2,}\s*[:-]?\s*Chat\s+(\d+)(?!\d)",    # Match "TH: Chat 01271153"
             r"^[A-Z]{2,}\s*[:-]?\s*Chat\s*#\s*(\d+)(?!\d)" # Match "TH: Chat #01271153"
         ]
-    
+        
         for pattern in patterns:
             match = re.search(pattern, chat_text, re.IGNORECASE)
             if match:
-                return f"Chat_{match.group(1)}"
+                chat_id = match.group(1)
+                
+                # Check for duplicated numbers (common pattern in your data)
+                if len(chat_id) >= 16:
+                    # Check if the first half equals the second half
+                    half_len = len(chat_id) // 2
+                    if chat_id[:half_len] == chat_id[half_len:2*half_len]:
+                        # Found a duplicate pattern, use just the first half
+                        chat_id = chat_id[:half_len]
+                    
+                    # Also check if the number is duplicated with slight differences
+                    # (common with OCR or text extraction errors)
+                    elif chat_id[:6] == chat_id[half_len:half_len+6]:
+                        # First few digits match, likely duplication
+                        chat_id = chat_id[:half_len]
+                
+                return f"Chat_{chat_id}"
         
         # If no valid chat ID found, generate a hash from the content
         content_sample = chat_text[:100].strip()
@@ -302,8 +318,9 @@ class EnhancedChatProcessor:
                     pass
         return None
 
+
     def _clean_and_process_chat(self, chat_text: str) -> str:
-        """Clean and format chat content for analysis."""
+        """Clean and format chat content for analysis, filtering out system messages."""
         lines = chat_text.split('\n')
         processed_lines = []
         has_valid_content = False
@@ -320,24 +337,30 @@ class EnhancedChatProcessor:
             ]
         }
 
-        # Simplified skip patterns - only skip non-conversation content
-        skip_patterns = [
-            r'^\s*\{ChatWindowButton:',
+        # System message patterns to filter out
+        system_message_patterns = [
+            r'^\s*Agent Chatbot successfully transferred the chat to skill',
+            r'^\s*Chat Started:',
+            r'^\s*Chat Origin:',
+            r'^\s*Chat Transferred From',
+            r'^\s*Agent \w+ requested a file transfer',
+            r'^\s*File transfer succeeded',
             r'^\s*Page \d+ of \d+',
             r'^\s*Report generated',
-            r'^\s*[-=*_]{3,}\s*$'  # Separator lines
+            r'^\s*[-=*_]{3,}\s*$',  # Separator lines
+            r'^\s*\{ChatWindowButton:',
         ]
-
-        skip_pattern = '|'.join(skip_patterns)
-        has_conversation = False
-
+        
+        # Combine into one pattern for efficiency
+        system_pattern = '|'.join(system_message_patterns)
+        
         for line in lines:
             line = line.strip()
             if not line:
                 continue
 
-            # Skip non-conversation content
-            if re.match(skip_pattern, line, re.IGNORECASE):
+            # Skip system messages
+            if re.match(system_pattern, line, re.IGNORECASE):
                 continue
 
             # Check for any type of message
@@ -347,7 +370,6 @@ class EnhancedChatProcessor:
                 if re.match(pattern, line, re.IGNORECASE):
                     is_message = True
                     has_valid_content = True
-                    has_conversation = True
                     # Clean up the line
                     line = re.sub(r'^\(\d+[ms]\)\s*', '', line)  # Remove timestamp
                     line = re.sub(r'^.*?(?:Customer|Client|Visitor|User|Guest)\s*:', 'Customer:', line, flags=re.IGNORECASE)
@@ -359,7 +381,6 @@ class EnhancedChatProcessor:
                     if re.match(pattern, line, re.IGNORECASE):
                         is_message = True
                         has_valid_content = True
-                        has_conversation = True
                         # Clean up the line
                         line = re.sub(r'^\(\d+[ms]\)\s*', '', line)  # Remove timestamp
                         # Preserve the original speaker type (Bot/Agent)
@@ -375,7 +396,7 @@ class EnhancedChatProcessor:
                 processed_lines.append(line)
 
         # Return content if it has any conversation
-        if has_valid_content and has_conversation:
+        if has_valid_content:
             return '\n'.join(processed_lines)
         return ''
 
