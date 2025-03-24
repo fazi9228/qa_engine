@@ -142,7 +142,7 @@ def analyze_single_chat(chat, rules, target_language, prompt_path, provider_inte
         retry_count += 1
         
 
-# Update the process_batch_analysis function to be more robust and include rate limiting
+
 # Update the process_batch_analysis function with improved error logging
 def process_batch_analysis(selected_chats, rules, target_language, prompt_path, provider_internal_name, model_name, max_workers=2):
     """Process batch analysis for selected chats with improved concurrent processing"""
@@ -383,107 +383,122 @@ def process_batch_analysis(selected_chats, rules, target_language, prompt_path, 
     return results
 
 def render_batch_processing_ui():
-    """Render the UI for batch processing"""
+    """Render a simplified UI for batch processing with reduced page resets"""
     st.header("Batch Chat Analysis")
     
     # Set batch mode
     st.session_state.batch_mode = True
     
+    # Initialize session state variables if they don't exist
+    if 'file_hashes' not in st.session_state:
+        st.session_state.file_hashes = []
+    
     # File uploader
     uploaded_files = st.file_uploader(
         "Upload chat transcript files (CSV, DOCX, PDF, TXT)",
         type=['csv', 'docx', 'pdf', 'txt'],
-        accept_multiple_files=True
+        accept_multiple_files=True,
+        key="batch_file_uploader"
     )
-
+    
+    # If no files are uploaded, show message and check for cached results
     if not uploaded_files:
         st.info("Please upload one or more chat transcript files to begin batch analysis.")
+        
+        # Check if we have stored chats in session state
+        if 'selected_chats' in st.session_state and 'processor' in st.session_state:
+            return st.session_state.selected_chats, st.session_state.processor
         return None, None
-
+    
+    # Check if the uploaded files are the same as previously processed
+    current_hashes = []
+    for uploaded_file in uploaded_files:
+        file_hash = hashlib.md5(uploaded_file.getvalue()).hexdigest()
+        current_hashes.append(file_hash)
+    
+    # If hashes match, return cached results
+    if current_hashes == st.session_state.file_hashes and 'selected_chats' in st.session_state:
+        st.success(f"Using cached results: {len(st.session_state.selected_chats)} chats loaded")
+        return st.session_state.selected_chats, st.session_state.processor
+    
+    # Store current file hashes
+    st.session_state.file_hashes = current_hashes
+    
+    # We have new files or different files, process them
+    st.session_state.processed_files = {}  # Reset processed files
+    
     # Initialize the enhanced chat processor
     processor = EnhancedChatProcessor()
-
+    
     # Process all uploaded files
     all_chats = []
     
     # Add progress indicators
     progress_text = st.empty()
     progress_bar = st.progress(0)
-
+    
     total_files = len(uploaded_files)
     for i, uploaded_file in enumerate(uploaded_files):
         progress_text.text(f"Processing file {i+1}/{total_files}: {uploaded_file.name}")
         progress_bar.progress((i) / total_files)
-
-        # Generate a unique file key
-        file_key = f"{uploaded_file.name}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
-
-        # Check if we've already processed this file
-        if 'processed_files' in st.session_state and file_key in st.session_state.processed_files:
-            chats = st.session_state.processed_files[file_key]
-            st.success(f"Using cached results for {uploaded_file.name} ({len(chats)} chats)")
-        else:
-            try:
-                # Remove the excessive message - just process the file without announcing it
+        
+        # Generate a unique key for this file
+        file_content_hash = hashlib.md5(uploaded_file.getvalue()).hexdigest()[:8]
+        file_key = f"{uploaded_file.name}_{file_content_hash}"
+        
+        try:
+            # Process the file
+            with st.spinner(f"Extracting chats from {uploaded_file.name}..."):
                 chats = processor.extract_chats_from_file(uploaded_file)
-
-                if chats:
-                    # Store in session state for caching
-                    if 'processed_files' not in st.session_state:
-                        st.session_state.processed_files = {}
-                    st.session_state.processed_files[file_key] = chats
-                else:
-                    st.warning(f"No valid chats found in {uploaded_file.name}")
-            except Exception as e:
-                st.error(f"Error processing {uploaded_file.name}: {str(e)}")
-                continue
-
-        all_chats.extend(chats)
-
+            
+            if chats:
+                # Store in session state for caching
+                st.session_state.processed_files[file_key] = chats
+                all_chats.extend(chats)
+            else:
+                st.warning(f"No valid chats found in {uploaded_file.name}")
+        except Exception as e:
+            st.error(f"Error processing {uploaded_file.name}: {str(e)}")
+            continue
+    
     # Complete the progress bar
     progress_bar.progress(1.0)
     
-    # Display only one summary message instead of multiple redundant ones
+    # Display summary of processed files
     if all_chats:
-        file_names = ", ".join([f.name for f in uploaded_files])
-        st.success(f"Successfully extracted {len(all_chats)} chat(s) from {file_names}")
+        st.success(f"Successfully extracted {len(all_chats)} chat conversations")
         
-        # Hide chat details in an expander
-        with st.expander("View Chat Details", expanded=False):
-            for i, chat in enumerate(all_chats):
-                st.subheader(f"Chat {i+1}: {chat['id']}")
-                st.text_area("Preview", chat['processed_content'][:200] + "..." if len(chat['processed_content']) > 200 else chat['processed_content'], height=100)
-                st.markdown("---")
-        
-        # Use all chats for analysis
-        selected_chats = all_chats
-        
-        # Store the selected chats in session state
-        st.session_state.selected_chats = selected_chats
+        # Store the all chats and processor in session state
+        st.session_state.selected_chats = all_chats
         st.session_state.processor = processor
         
-        # Return the selected chats and processor
-        return selected_chats, processor
-    
-    # Check if we have stored chats in session state
-    if 'selected_chats' in st.session_state and 'processor' in st.session_state:
-        return st.session_state.selected_chats, st.session_state.processor
-    
-    return None, None
+        # Return the all chats and processor
+        return all_chats, processor
+    else:
+        st.warning("No chats were extracted from the uploaded files.")
+        return None, None
 
 def visualize_batch_results(results, rules):
-    """Visualize batch analysis results with improved reporting and state persistence"""
+    """Visualize batch analysis results with simplified reporting"""
     import json
     from datetime import datetime
+    import io
+    import hashlib
     
     if not results:
         st.warning("No analysis results to display.")
         return
     
-    # Generate a timestamp if not already in session state
-    if 'batch_timestamp' not in st.session_state:
+    # Generate a timestamp if not already in session state for this batch
+    # Create a unique identifier for this batch based on results content
+    if 'current_batch_id' not in st.session_state:
+        # Create a hash of the first result to identify this batch
+        batch_hash = hashlib.md5(str(results[0]).encode()).hexdigest()[:8]
+        st.session_state.current_batch_id = batch_hash
         st.session_state.batch_timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    
     timestamp = st.session_state.batch_timestamp
+    batch_id = st.session_state.current_batch_id
     
     # Store results in session state if not already there
     if 'batch_results' not in st.session_state:
@@ -523,10 +538,10 @@ def visualize_batch_results(results, rules):
         unsafe_allow_html=True
     )
     
-    # Create a comprehensive summary table
+    # Create a simplified summary table
     st.subheader("Summary of All Chat Scores")
     
-    # Prepare data for table
+    # Prepare data for table - simplified
     summary_data = []
     for i, result in enumerate(results):
         chat_id = result.get('chat_id', f"Chat_{i+1}")
@@ -541,86 +556,15 @@ def visualize_batch_results(results, rules):
                     chat_quality = level["name"]
                     break
         
-        # Get parameter scores
-        parameter_scores = {}
-        for param in rules["parameters"]:
-            param_name = param["name"]
-            if param_name in result and "score" in result[param_name]:
-                parameter_scores[param_name] = result[param_name]["score"]
-        
         summary_data.append({
             "Chat": chat_id,
             "Overall Score": f"{score:.2f}",
             "Quality": chat_quality,
-            "Language": language,
-            "Parameters": parameter_scores
+            "Language": language
         })
     
     # Display table
     st.table(summary_data)
-    
-    # Prepare downloads before displaying buttons
-    
-    # Generate more comprehensive report data
-    detailed_report = {
-        "summary": {
-            "timestamp": timestamp,
-            "total_chats": len(results),
-            "average_score": avg_score,
-            "quality_level": quality_level
-        },
-        "chat_scores": [
-            {
-                "chat_id": result.get('chat_id', f"Chat_{i}"),
-                "overall_score": result.get('weighted_overall_score', 0),
-                "language": result.get('detected_language', 'Unknown'),
-                "parameters": {
-                    param["name"]: (result.get(param["name"], {}).get("score", "N/A") 
-                                  if param["name"] in result else "N/A")
-                    for param in rules["parameters"]
-                }
-            }
-            for i, result in enumerate(results)
-        ],
-        "detailed_results": results  # Include complete analysis results
-    }
-    
-    # Create JSON report
-    json_report = json.dumps(detailed_report, indent=2, ensure_ascii=False)
-    
-    # Create Summary CSV
-    summary_csv_data = "Chat ID,Overall Score,Language,Quality Level"
-    
-    # Add parameter names to header
-    for param in rules["parameters"]:
-        summary_csv_data += f",{param['name']}"
-    summary_csv_data += "\n"
-    
-    # Add data rows
-    for i, result in enumerate(results):
-        chat_id = result.get('chat_id', f"Chat_{i}")
-        score = result.get('weighted_overall_score', 0)
-        language = result.get('detected_language', 'Unknown')
-        
-        # Determine quality level for this chat
-        chat_quality = "Unknown"
-        if "scoring_system" in rules and "quality_levels" in rules["scoring_system"]:
-            for level in rules["scoring_system"]["quality_levels"]:
-                if level["range"]["min"] <= score <= level["range"]["max"]:
-                    chat_quality = level["name"]
-                    break
-        
-        summary_csv_data += f'"{chat_id}",{score:.2f},"{language}","{chat_quality}"'
-        
-        # Add parameter scores
-        for param in rules["parameters"]:
-            param_name = param["name"]
-            if param_name in result and "score" in result[param_name]:
-                summary_csv_data += f',{result[param_name]["score"]:.2f}'
-            else:
-                summary_csv_data += ',N/A'
-        
-        summary_csv_data += "\n"
     
     # Create Detailed CSV with explanations, examples, and suggestions
     detailed_csv_data = "Chat ID,Parameter,Score,Explanation,Example,Suggestion\n"
@@ -646,63 +590,19 @@ def visualize_batch_results(results, rules):
                 
                 detailed_csv_data += f'"{chat_id}","{param_name}",{score},"{explanation}","{example}","{suggestion}"\n'
     
-    # Save all data to session state
-    if 'json_report' not in st.session_state:
-        st.session_state.json_report = json_report
-    if 'summary_csv' not in st.session_state:
-        st.session_state.summary_csv = summary_csv_data
-    if 'detailed_csv' not in st.session_state:
-        st.session_state.detailed_csv = detailed_csv_data
+    # Single download option
+    st.subheader("Download Report")
     
-    # Define a callback function to be used after download
-    def maintain_state():
-        st.session_state.download_clicked = True
-        
-    # Offer downloads prominently
-    st.subheader("Download Complete Results")
+    # Create file-like object for the detailed CSV
+    detailed_csv_file = io.BytesIO(detailed_csv_data.encode('utf-8'))
     
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        # Use session state with a form to prevent page reset
-        with st.form(key=f"json_form_{timestamp}"):
-            st.form_submit_button(
-                label="Download Complete Analysis (JSON)",
-                on_click=maintain_state,
-            )
-            # Only show the actual download button when form is submitted
-            if st.session_state.get('download_clicked'):
-                st.download_button(
-                    label="Click to Download JSON",
-                    data=st.session_state.json_report.encode('utf-8'),
-                    file_name=f"qa_analysis_full_{timestamp}.json",
-                    mime="application/json",
-                )
-    
-    with col2:
-        with st.form(key=f"summary_form_{timestamp}"):
-            st.form_submit_button(
-                label="Download Summary Scores (CSV)",
-                on_click=maintain_state,
-            )
-            if st.session_state.get('download_clicked'):
-                st.download_button(
-                    label="Click to Download Summary CSV",
-                    data=st.session_state.summary_csv.encode('utf-8'),
-                    file_name=f"qa_summary_{timestamp}.csv",
-                    mime="text/csv",
-                )
-    
-    with col3:
-        with st.form(key=f"detailed_form_{timestamp}"):
-            st.form_submit_button(
-                label="Download Detailed Analysis (CSV)",
-                on_click=maintain_state,
-            )
-            if st.session_state.get('download_clicked'):
-                st.download_button(
-                    label="Click to Download Detailed CSV",
-                    data=st.session_state.detailed_csv.encode('utf-8'),
-                    file_name=f"qa_detailed_{timestamp}.csv",
-                    mime="text/csv",
-                )
+    # Centered single download button
+    _, center_col, _ = st.columns([1, 2, 1])
+    with center_col:
+        st.download_button(
+            label="Download Detailed Analysis (CSV)",
+            data=detailed_csv_file,
+            file_name=f"qa_detailed_{timestamp}_{batch_id}.csv",
+            mime="text/csv",
+            key=f"detailed_dl_{batch_id}"
+        )
