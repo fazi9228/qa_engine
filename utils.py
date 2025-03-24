@@ -208,16 +208,45 @@ def parse_json_response(response_text):
             st.write(response_text)
             return None
         
-# Function to detect language - cached for performance
-@st.cache_data(ttl=3600, show_spinner=False)
-def detect_language_cached(text_sample, provider="anthropic"):
+def detect_language_from_sample(text_sample):
     """
-    Enhanced language detection with support for multiple languages and Unicode ranges.
-    Uses a cached approach for performance.
+    Directly detect language from a text sample based on character presence.
+    This function prioritizes detecting specific languages with unique scripts.
     """
     if not text_sample or len(text_sample.strip()) < 10:
         return "unknown", "Unknown"
-        
+    
+    # Count characters in each script range
+    text_len = len(text_sample.strip())
+    
+    # Thai detection (ก-๛)
+    thai_chars = sum(1 for char in text_sample if '\u0E00' <= char <= '\u0E7F')
+    if thai_chars > 10:  # If there are at least 10 Thai characters
+        return "th", "Thai"
+    
+    # Chinese detection
+    chinese_chars = sum(1 for char in text_sample if 
+                        ('\u4E00' <= char <= '\u9FFF') or ('\u3400' <= char <= '\u4DBF'))
+    if chinese_chars > 10:  # If there are at least 10 Chinese characters
+        return "zh", "Chinese"
+    
+    # Vietnamese detection - look for specific Vietnamese diacritics
+    vietnamese_diacritics = sum(1 for char in text_sample if 
+                               char in 'ăâêôơưđ' or char in 'ĂÂÊÔƠƯĐ' or
+                               '\u0300' <= char <= '\u036F')  # Combining diacritical marks
+    if vietnamese_diacritics > 10:
+        return "vi", "Vietnamese"
+    
+    # Default to English for everything else
+    return "en", "English"
+
+# Then modify the detect_language_cached function to use this direct detection:
+
+def detect_language_cached(text_sample, provider="anthropic"):
+    """Cached version of language detection to improve performance"""
+    if not text_sample:
+        return "unknown", "Unknown"
+    
     # Create a hash of the text sample for caching
     import hashlib
     text_hash = hashlib.md5(text_sample.encode('utf-8')).hexdigest()[:8]
@@ -227,88 +256,8 @@ def detect_language_cached(text_sample, provider="anthropic"):
     if cache_key in st.session_state:
         return st.session_state[cache_key]
     
-    # Define language Unicode ranges for common non-Latin scripts
-    # This allows for quick detection based on character sets
-    unicode_ranges = {
-        "th": {
-            "name": "Thai",
-            "ranges": [('\u0E00', '\u0E7F')],
-            "threshold": 0.15
-        },
-        "zh": {
-            "name": "Chinese",
-            "ranges": [('\u4E00', '\u9FFF'), ('\u3400', '\u4DBF')],
-            "threshold": 0.15
-        },
-        "ja": {
-            "name": "Japanese",
-            "ranges": [
-                ('\u3040', '\u309F'),  # Hiragana
-                ('\u30A0', '\u30FF'),  # Katakana
-                ('\u4E00', '\u9FFF')   # Kanji (shared with Chinese)
-            ],
-            "threshold": 0.15
-        },
-        "ko": {
-            "name": "Korean",
-            "ranges": [('\uAC00', '\uD7AF'), ('\u1100', '\u11FF')],
-            "threshold": 0.15
-        },
-        "ru": {
-            "name": "Russian",
-            "ranges": [('\u0400', '\u04FF')],
-            "threshold": 0.25
-        },
-        "ar": {
-            "name": "Arabic",
-            "ranges": [('\u0600', '\u06FF'), ('\u0750', '\u077F')],
-            "threshold": 0.15
-        },
-        "he": {
-            "name": "Hebrew",
-            "ranges": [('\u0590', '\u05FF')],
-            "threshold": 0.15
-        },
-        "vi": {
-            "name": "Vietnamese", 
-            "ranges": [
-                # Vietnamese uses Latin script with diacritics
-                # We check for specific Vietnamese diacritics
-                ('\u00C0', '\u00C3'), ('\u00C8', '\u00CA'), 
-                ('\u00CC', '\u00CD'), ('\u00D2', '\u00D5'),
-                ('\u00D9', '\u00DA'), ('\u00DD', '\u00DD'),
-                ('\u00E0', '\u00E3'), ('\u00E8', '\u00EA'),
-                ('\u00EC', '\u00ED'), ('\u00F2', '\u00F5'),
-                ('\u00F9', '\u00FA'), ('\u00FD', '\u00FD'),
-                ('\u0102', '\u0103'), ('\u0110', '\u0111'),
-                ('\u0128', '\u0129'), ('\u0168', '\u0169'),
-                ('\u01A0', '\u01A1'), ('\u01AF', '\u01B0'),
-                ('\u1EA0', '\u1EF9')
-            ],
-            "threshold": 0.05  # Lower threshold because Vietnamese uses Latin with diacritics
-        }
-    }
-    
-    # Check if text contains significant amount of characters from any of the defined ranges
-    text_len = len(text_sample)
-    lang_scores = {}
-    
-    for lang_code, lang_info in unicode_ranges.items():
-        char_count = 0
-        for start, end in lang_info["ranges"]:
-            char_count += sum(1 for char in text_sample if start <= char <= end)
-        
-        ratio = char_count / text_len if text_len > 0 else 0
-        lang_scores[lang_code] = ratio
-        
-        # If we exceed the threshold for this language, return it immediately
-        if ratio >= lang_info["threshold"]:
-            result = (lang_code, lang_info["name"])
-            st.session_state[cache_key] = result
-            return result
-    
-    # If no significant script detected, fall back to the API-based detection
-    result = detect_language(text_sample, provider)
+    # Use our direct detection logic instead of API-based detection
+    result = detect_language_from_sample(text_sample)
     st.session_state[cache_key] = result
     return result
 
