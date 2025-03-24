@@ -67,6 +67,17 @@ def main():
     
     # Update the title with an icon
     st.title("Customer Support QA Engine 🔍")
+
+    # Add beta/POC indicator with distinctive styling
+    st.markdown(
+        """
+        <div style="background-color: #FFECB3; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+            <h3 style="color: #FF6F00; margin: 0;">BETA VERSION - Proof of Concept</h3>
+            <p style="margin: 5px 0 0 0;">This QA Engine is currently in beta/POC stage to test core functionality.</p>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
     
     # Check for required files before proceeding
     required_files = {
