@@ -511,13 +511,31 @@ def visualize_batch_results(results, rules):
     overall_scores = [result.get('weighted_overall_score', 0) for result in results]
     avg_score = sum(overall_scores) / len(overall_scores) if overall_scores else 0
     
-    # Determine quality level
+    # Determine quality level with fallback options (similar to chat_qa.py)
     quality_level = "Unknown"
+    
+    # First try using scoring_system and quality_levels
     if "scoring_system" in rules and "quality_levels" in rules["scoring_system"]:
         for level in rules["scoring_system"]["quality_levels"]:
             if level["range"]["min"] <= avg_score <= level["range"]["max"]:
                 quality_level = level["name"]
                 break
+    # Fallback to score_ranges if available
+    elif "score_ranges" in rules:
+        for level_name, level_range in rules["score_ranges"].items():
+            if level_range["min"] <= avg_score <= level_range["max"]:
+                quality_level = level_name.capitalize()
+                break
+    # Use simple quality level determination as final fallback
+    else:
+        if avg_score >= 90:
+            quality_level = "Excellent"
+        elif avg_score >= 80:
+            quality_level = "Good"
+        elif avg_score >= 70:
+            quality_level = "Needs Improvement"
+        else:
+            quality_level = "Poor"
     
     # Set color class based on quality level
     color_class = "score-box-needs-improvement"  # Default
@@ -541,26 +559,41 @@ def visualize_batch_results(results, rules):
     # Create a simplified summary table
     st.subheader("Summary of All Chat Scores")
     
-    # Prepare data for table - simplified
+    # Prepare data for table - simplified (removed Language column)
     summary_data = []
     for i, result in enumerate(results):
         chat_id = result.get('chat_id', f"Chat_{i+1}")
         score = result.get('weighted_overall_score', 0)
-        language = result.get('detected_language', 'Unknown')
         
-        # Determine quality level for this chat
+        # Determine quality level for this chat (with fallbacks)
         chat_quality = "Unknown"
         if "scoring_system" in rules and "quality_levels" in rules["scoring_system"]:
             for level in rules["scoring_system"]["quality_levels"]:
                 if level["range"]["min"] <= score <= level["range"]["max"]:
                     chat_quality = level["name"]
                     break
+        # Fallback to score_ranges if available
+        elif "score_ranges" in rules:
+            for level_name, level_range in rules["score_ranges"].items():
+                if level_range["min"] <= score <= level_range["max"]:
+                    chat_quality = level_name.capitalize()
+                    break
+        # Use simple quality level determination as final fallback
+        else:
+            if score >= 90:
+                chat_quality = "Excellent"
+            elif score >= 80:
+                chat_quality = "Good"
+            elif score >= 70:
+                chat_quality = "Needs Improvement"
+            else:
+                chat_quality = "Poor"
         
         summary_data.append({
             "Chat": chat_id,
             "Overall Score": f"{score:.2f}",
-            "Quality": chat_quality,
-            "Language": language
+            "Quality": chat_quality
+            # Removed "Language" column
         })
     
     # Display table
@@ -597,7 +630,7 @@ def visualize_batch_results(results, rules):
     detailed_csv_file = io.BytesIO(detailed_csv_data.encode('utf-8'))
     
     # Centered single download button
-    _, center_col, _ = st.columns([1, 2, 1])
+    _, center_col, _ = st.columns([1, 1, 1])
     with center_col:
         st.download_button(
             label="Download Detailed Analysis (CSV)",
