@@ -101,6 +101,23 @@
       ]
     },
     {
+      "name": "Knowledge Base Adherence",
+      "description": "Agent's response aligns with standard answers provided in the internal Knowledge Base for common questions.",
+      "weight": 1.0,
+      "category": "Accuracy & Compliance",
+      "guidelines": [
+        "Only evaluate KB adherence when a customer's question clearly matches something in the KB",
+        "Agent may use their own expertise and words when responding to questions not covered in the KB",
+        "Focus on identifying contradictions with KB information rather than expecting verbatim answers",
+        "When a customer asks a question covered in the Knowledge Base, the agent's answer should contain the key information from the KB.",
+        "Agent should not contradict information in the Knowledge Base.",
+        "For questions not covered in the KB, score should be based on general accuracy and compliance with policies.",
+        "Agent may personalize KB answers but must maintain the core information and policy details.",
+        "Give full score when answers align with KB information, even if not verbatim.",
+        "If the agent's answer is correct but not aligned with the KB, score should be based on overall accuracy and compliance with policies."
+      ]
+    },
+    {
       "name": "Compliance with Internal & Regulatory Policies",
       "description": "Adheres to internal guidelines, AML/KYC requirements, and financial industry regulations.",
       "weight": 1.0,
@@ -208,6 +225,7 @@
       "name": "Accuracy & Compliance",
       "parameters": [
         "Accuracy of Response",
+        "Knowledge Base Adherence",
         "Compliance with Internal & Regulatory Policies"
       ]
     },
@@ -232,114 +250,114 @@
         "Tagging & Categorization"
       ]
     }
-  ],
-  "scoring_system": {
-    "score_scale": {
-      "min": 0,
-      "max": 100
+],
+"scoring_system": {
+  "score_scale": {
+    "min": 0,
+    "max": 100
+  },
+  "quality_levels": [
+    {
+      "name": "Excellent",
+      "range": {
+        "min": 85,
+        "max": 100
+      },
+      "description": "Exceptional service that exceeded expectations",
+      "action_required": "Recognition and positive feedback"
     },
-    "quality_levels": [
-      {
-        "name": "Excellent",
-        "range": {
-          "min": 85,
-          "max": 100
-        },
-        "description": "Exceptional service that exceeded expectations",
-        "action_required": "Recognition and positive feedback"
+    {
+      "name": "Good",
+      "range": {
+        "min": 70,
+        "max": 84
       },
-      {
-        "name": "Good",
-        "range": {
-          "min": 70,
-          "max": 84
-        },
-        "description": "Solid service meeting all requirements",
-        "action_required": "Minor improvements in specific areas"
+      "description": "Solid service meeting all requirements",
+      "action_required": "Minor improvements in specific areas"
+    },
+    {
+      "name": "Fair",
+      "range": {
+        "min": 50,
+        "max": 69
       },
-      {
-        "name": "Fair",
-        "range": {
-          "min": 50,
-          "max": 69
-        },
-        "description": "Adequate service with notable room for improvement",
-        "action_required": "Targeted training in specific areas"
+      "description": "Adequate service with notable room for improvement",
+      "action_required": "Targeted training in specific areas"
+    },
+    {
+      "name": "Poor",
+      "range": {
+        "min": 0,
+        "max": 49
       },
-      {
-        "name": "Poor",
-        "range": {
-          "min": 0,
-          "max": 49
-        },
-        "description": "Inadequate service requiring significant improvement",
-        "action_required": "Comprehensive training and close monitoring"
-      }
-    ],
-    "critical_failures": [
-      {
-        "name": "Compliance Violation",
-        "description": "Any violation of compliance requirements, including KYC/AML protocols",
-        "impact": "Automatic failure regardless of other scores"
-      },
-      {
-        "name": "Customer Data Breach",
-        "description": "Sharing customer information without proper verification",
-        "impact": "Automatic failure regardless of other scores"
-      },
-      {
-        "name": "Misrepresentation",
-        "description": "Providing false information about company policies or products",
-        "impact": "Automatic failure regardless of other scores"
-      },
-      {
-        "name": "Inappropriate Tone",
-        "description": "Using rude, dismissive, or unprofessional tone with customer",
-        "impact": "Automatic failure regardless of other scores"
-      }
-    ]
-  },
-  "voice_quality_parameters": {
-    "metrics": [
-      {
-        "name": "Audio Clarity",
-        "description": "The overall clarity of the agent's voice and audio connection"
-      },
-      {
-        "name": "Background Noise",
-        "description": "Level of background noise present during the call"
-      },
-      {
-        "name": "Volume Consistency",
-        "description": "Consistency of volume levels throughout the call"
-      },
-      {
-        "name": "Call Connection Quality",
-        "description": "Quality of the connection without drops or significant static"
-      }
-    ],
-    "thresholds": {
-      "excellent": {
-        "min_score": 90,
-        "requirements": [
-          "Crystal clear agent audio with minimal to no background noise",
-          "Consistent volume levels throughout",
-          "No connection issues or drops",
-          "Professional call environment"
-        ]
-      },
-      "poor": {
-        "max_score": 50,
-        "indicators": [
-          "Significant static or distortion in agent audio",
-          "Loud background noise that interferes with communication",
-          "Significant volume inconsistencies",
-          "Call drops or connection issues",
-          "Unprofessional call environment (loud colleagues, music, etc.)"
-        ]
-      }
+      "description": "Inadequate service requiring significant improvement",
+      "action_required": "Comprehensive training and close monitoring"
     }
-  },
-  "version": "1.0",
-  "last_updated": "2025-03-12"
+  ],
+  "critical_failures": [
+    {
+      "name": "Compliance Violation",
+      "description": "Any violation of compliance requirements, including KYC/AML protocols",
+      "impact": "Automatic failure regardless of other scores"
+    },
+    {
+      "name": "Customer Data Breach",
+      "description": "Sharing customer information without proper verification",
+      "impact": "Automatic failure regardless of other scores"
+    },
+    {
+      "name": "Misrepresentation",
+      "description": "Providing false information about company policies or products",
+      "impact": "Automatic failure regardless of other scores"
+    },
+    {
+      "name": "Inappropriate Tone",
+      "description": "Using rude, dismissive, or unprofessional tone with customer",
+      "impact": "Automatic failure regardless of other scores"
+    }
+  ]
+},
+"voice_quality_parameters": {
+  "metrics": [
+    {
+      "name": "Audio Clarity",
+      "description": "The overall clarity of the agent's voice and audio connection"
+    },
+    {
+      "name": "Background Noise",
+      "description": "Level of background noise present during the call"
+    },
+    {
+      "name": "Volume Consistency",
+      "description": "Consistency of volume levels throughout the call"
+    },
+    {
+      "name": "Call Connection Quality",
+      "description": "Quality of the connection without drops or significant static"
+    }
+  ],
+  "thresholds": {
+    "excellent": {
+      "min_score": 90,
+      "requirements": [
+        "Crystal clear agent audio with minimal to no background noise",
+        "Consistent volume levels throughout",
+        "No connection issues or drops",
+        "Professional call environment"
+      ]
+    },
+    "poor": {
+      "max_score": 50,
+      "indicators": [
+        "Significant static or distortion in agent audio",
+        "Loud background noise that interferes with communication",
+        "Significant volume inconsistencies",
+        "Call drops or connection issues",
+        "Unprofessional call environment (loud colleagues, music, etc.)"
+      ]
+    }
+  }
+},
+"version": "1.0",
+"last_updated": "2025-03-12"
 }
