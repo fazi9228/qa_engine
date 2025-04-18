@@ -70,8 +70,7 @@ def main():
         return
     
     # Update the title with an icon
-    st.title("Customer Support QA Engine 🔍")
-    st.caption("Beta version to test functionality")
+    st.title("Customer Support QA Engine beta🔍")
     
     # Check for required files before proceeding
     required_files = {
