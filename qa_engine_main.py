@@ -3,6 +3,7 @@ import json
 import os
 import time
 from datetime import datetime
+from typing import Dict, Any, List, Optional
 
 # Import utility functions
 from utils import (
@@ -13,6 +14,9 @@ from utils import (
     check_api_connections,
     get_api_key
 )
+
+# Import knowledge base
+from knowledge_base import KnowledgeBase
 
 # Import chat QA module
 from chat_qa import (
@@ -72,7 +76,8 @@ def main():
     required_files = {
         "evaluation_rules.json": "Text Chat Evaluation Rules",
         "scoring_system.json": "Scoring System",
-        "QA_prompt.md": "Text QA Prompt Template"
+        "QA_prompt.md": "Text QA Prompt Template",
+        "qa_knowledge_base.json": "Knowledge Base"
     }
     
     # If voice module is available, add voice-specific files
@@ -96,6 +101,9 @@ def main():
                               help="Maximum number of concurrent API calls for batch processing")
     
     try:
+        # Initialize Knowledge Base
+        kb = KnowledgeBase("qa_knowledge_base.json")
+        
         # Load evaluation rules for text chat
         chat_rules = load_evaluation_rules("evaluation_rules.json", "scoring_system.json")
         
@@ -109,6 +117,7 @@ def main():
             status_expander = st.expander("Status Messages", expanded=False)
             with status_expander:
                 st.success("Loaded evaluation rules successfully")
+                st.success(f"Loaded knowledge base with {len(kb.qa_pairs.get('qa_pairs', []))} Q&A pairs")
                 if VOICE_MODULE_AVAILABLE and voice_rules:
                     st.success("Loaded voice evaluation rules successfully")
                 elif VOICE_MODULE_AVAILABLE and not voice_rules:
@@ -199,6 +208,9 @@ def main():
         if VOICE_MODULE_AVAILABLE:
             available_tabs.append("Voice Call Analysis")
             
+        
+        # Knowledge Base tab
+        available_tabs.append("Knowledge Base")
         tabs = st.tabs(available_tabs)
         
         # Single Chat Analysis Tab
@@ -215,6 +227,7 @@ def main():
                     process_chat_analysis(
                         chat_transcript, 
                         chat_rules, 
+                        kb,
                         target_language, 
                         chat_prompt_path,
                         provider_internal_name, 
@@ -259,6 +272,7 @@ def main():
                         batch_results = process_batch_analysis(
                             selected_chats,
                             chat_rules,
+                            kb,
                             target_language,
                             "QA_prompt.md",
                             provider_internal_name,
@@ -361,6 +375,7 @@ def main():
                                     result = analyze_chat_transcript(
                                         transcript,
                                         voice_rules if voice_rules else chat_rules,
+                                        kb,
                                         target_language,
                                         prompt_template_path="voice_qa_prompt.md" if os.path.exists("voice_qa_prompt.md") else "QA_prompt.md",
                                         model_provider=provider_internal_name,
@@ -388,6 +403,39 @@ def main():
                                 
                             progress_bar.progress(100)
                             status_text.text("Voice call processing complete!")
+        
+        # Knowledge Base Tab
+        if len(tabs) > 3:
+            with tabs[3]:
+                st.header("Knowledge Base Management")
+                
+                # Display existing KB entries
+                st.subheader("Current Knowledge Base Entries")
+                
+                # Get all categories
+                categories = kb.get_all_categories()
+                
+                # Allow filtering by category
+                selected_category = st.selectbox(
+                    "Filter by category",
+                    ["All Categories"] + categories
+                )
+                
+                # Display entries based on selection
+                if selected_category == "All Categories":
+                    qa_pairs = kb.qa_pairs.get("qa_pairs", [])
+                else:
+                    qa_pairs = kb.get_qa_pairs_by_category(selected_category)
+                
+                st.info(f"Showing {len(qa_pairs)} KB entries")
+                
+                # Display in an expander for each entry
+                for i, qa_pair in enumerate(qa_pairs):
+                    with st.expander(f"Q: {qa_pair['question'][:80]}...", expanded=False):
+                        st.markdown(f"**Question:** {qa_pair['question']}")
+                        st.markdown(f"**Answer:** {qa_pair['answer']}")
+                        st.markdown(f"**Category:** {qa_pair['category']}")
+
                 
     except Exception as e:
         # Error handling
