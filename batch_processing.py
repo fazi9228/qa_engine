@@ -42,14 +42,14 @@ if 'analysis_mode' not in st.session_state:
     st.session_state.analysis_mode = "Batch Analysis"
 
 # Function to analyze a single chat with error handling
-# Function to analyze a single chat with improved error handling
-def analyze_single_chat(chat, rules, target_language, prompt_path, provider_internal_name, model_name):
+def analyze_single_chat(chat, rules, kb, target_language, prompt_path, provider_internal_name, model_name):
     """
     Analyze a single chat with improved error handling and retries
     
     Args:
     chat: Chat dictionary containing processed_content
     rules: Evaluation rules
+    kb: Knowledge Base instance
     target_language: Target language for analysis
     prompt_path: Path to prompt template
     provider_internal_name: Provider name (anthropic, openai)
@@ -79,6 +79,7 @@ def analyze_single_chat(chat, rules, target_language, prompt_path, provider_inte
             result = analyze_chat_transcript(
                 chat['processed_content'], 
                 rules, 
+                kb, 
                 target_language,
                 prompt_template_path=prompt_path,
                 model_provider=provider_internal_name,
@@ -140,11 +141,8 @@ def analyze_single_chat(chat, rules, target_language, prompt_path, provider_inte
         
         # If we made it here without returning, increment retry counter
         retry_count += 1
-        
 
-
-# Update the process_batch_analysis function with improved error logging
-def process_batch_analysis(selected_chats, rules, target_language, prompt_path, provider_internal_name, model_name, max_workers=2):
+def process_batch_analysis(selected_chats, rules, kb, target_language, prompt_path, provider_internal_name, model_name, max_workers=2):
     """Process batch analysis for selected chats with improved concurrent processing"""
     
     st.header("Batch Analysis Results")
@@ -160,10 +158,23 @@ def process_batch_analysis(selected_chats, rules, target_language, prompt_path, 
         return []
     
     # Create debug log container
-    debug_log = st.expander("Debug Log", expanded=False)
+    debug_log = st.expander("Debug Log", expanded=True)  # Set to True to automatically show logs
     with debug_log:
         st.write(f"Starting batch analysis with {batch_size} chats")
         st.write(f"Provider: {provider_internal_name}, Model: {model_name}")
+        
+        # Log KB info
+        try:
+            kb_size = len(kb.qa_pairs.get("qa_pairs", []))
+            st.write(f"Knowledge Base contains {kb_size} entries")
+        except Exception as kb_error:
+            st.write(f"Warning: Knowledge Base issue detected: {str(kb_error)}")
+        
+        # Log chat info
+        st.write("Chat info:")
+        for i, chat in enumerate(selected_chats[:3]):  # Log first 3 chats
+            content_length = len(chat.get('processed_content', ''))
+            st.write(f"Chat {i+1}: ID={chat.get('id', 'unknown')}, Content length={content_length}")
     
     # Create placeholders for status updates
     status_text.text(f"Preparing to analyze {batch_size} chats...")
@@ -172,200 +183,168 @@ def process_batch_analysis(selected_chats, rules, target_language, prompt_path, 
     results = []
     failures = []
     
-    # Create rate limiter to avoid hitting API limits
-    # Rate limiter - reduced to 2 requests per minute per worker to be safe
-    calls_per_minute = 2 * max_workers
-    min_delay = 60.0 / calls_per_minute  # Minimum time between API calls in seconds
-    last_call_time = time.time() - min_delay  # Initialize to allow immediate first call
+    # TESTING APPROACH: Try a simple test first
+    with debug_log:
+        st.write("Performing API connection test...")
+        try:
+            # Test API connection
+            if provider_internal_name == "anthropic":
+                from utils import initialize_anthropic_client
+                client = initialize_anthropic_client()
+                if client:
+                    st.write("✅ Anthropic API connection test successful")
+                else:
+                    st.write("❌ Anthropic API connection test failed")
+            elif provider_internal_name == "openai":
+                from utils import initialize_openai_client
+                client = initialize_openai_client()
+                if client:
+                    st.write("✅ OpenAI API connection test successful")
+                else:
+                    st.write("❌ OpenAI API connection test failed")
+        except Exception as api_error:
+            st.write(f"❌ API connection test error: {str(api_error)}")
     
-    # Process one chat first as a test
+    # Process one chat first as a test with full error reporting
     try:
-        test_chat = selected_chats[0]
-        with debug_log:
-            st.write(f"Testing analysis with first chat: {test_chat['id']}")
-            st.write(f"Chat content length: {len(test_chat.get('processed_content', ''))}")
-        
-        # Mark call time before making API request
-        last_call_time = time.time()
-        
-        # Analyze chat with error handling
-        test_data = analyze_single_chat(
-            test_chat, rules, target_language, prompt_path, provider_internal_name, model_name
-        )
-        
-        with debug_log:
-            st.write(f"Test analysis result: {'Success' if test_data.get('success') else 'Failed'}")
-            if not test_data.get('success'):
-                st.write(f"Error: {test_data.get('error', 'Unknown error')}")
-    
-    except Exception as e:
-        with debug_log:
-            st.write(f"Error during test analysis: {str(e)}")
-            import traceback
-            st.write(traceback.format_exc())
-        st.error(f"Error during test analysis: {str(e)}")
-        return []  # Return empty results if test fails
-    
-    # Process sequentially for better reliability with smaller batches
-    if batch_size <= 3:
-        with debug_log:
-            st.write("Using sequential processing for small batch")
-        
-        st.info("Small batch detected - using sequential processing for reliability")
-        
-        for i, chat in enumerate(selected_chats):
-            # Rate limiting
-            elapsed = time.time() - last_call_time
-            if elapsed < min_delay:
-                time.sleep(min_delay - elapsed)
-                
-            chat_id = chat['id']
-            status_text.text(f"Analyzing chat {i+1}/{batch_size}: {chat_id}")
+        if batch_size > 0:
+            test_chat = selected_chats[0]
+            with debug_log:
+                st.write(f"Testing analysis with first chat: {test_chat['id']}")
+                st.write(f"Chat content length: {len(test_chat.get('processed_content', ''))}")
+                if len(test_chat.get('processed_content', '')) > 0:
+                    st.write(f"First 100 chars: {test_chat.get('processed_content', '')[:100]}...")
             
+            # Very important - wrap this in a try/except to catch ALL errors
             try:
-                with debug_log:
-                    st.write(f"Processing chat {i+1}: {chat_id}")
-                
                 # Mark call time before making API request
                 last_call_time = time.time()
                 
-                # Analyze chat with error handling
+                # Log each step
+                with debug_log:
+                    st.write("Calling analyze_single_chat function...")
+                
+                # Analyze chat with error handling and capture the result
+                test_data = analyze_single_chat(
+                    test_chat, rules, kb, target_language, prompt_path, provider_internal_name, model_name
+                )
+                
+                with debug_log:
+                    if test_data:
+                        st.write(f"Test analysis returned data: {'Success' if test_data.get('success') else 'Failed'}")
+                        if not test_data.get('success'):
+                            st.write(f"Error message: {test_data.get('error', 'Unknown error')}")
+                    else:
+                        st.write("Test analysis returned None")
+            
+            except Exception as test_inner_error:
+                with debug_log:
+                    st.write(f"❌ ERROR DURING TEST ANALYSIS CALL: {str(test_inner_error)}")
+                    import traceback
+                    st.write(traceback.format_exc())
+                
+                # Continue despite error to see what happens with processing
+                test_data = None
+        else:
+            with debug_log:
+                st.write("No chats to test")
+            test_data = None
+    
+    except Exception as e:
+        with debug_log:
+            st.write(f"❌ ERROR DURING TEST SETUP: {str(e)}")
+            import traceback
+            st.write(traceback.format_exc())
+        
+        # Show the error but continue
+        st.warning(f"Error during test analysis: {str(e)}")
+        test_data = None
+    
+    # Continue with small batch processing to better isolate issues
+    batch_size = min(batch_size, 3)  # Test with max 3 chats
+    
+    with debug_log:
+        st.write(f"Processing {batch_size} chats sequentially for reliability")
+    
+    st.info(f"Processing {batch_size} chats sequentially for reliability")
+    
+    for i, chat in enumerate(selected_chats[:batch_size]):
+        chat_id = chat.get('id', f"Chat_{i+1}")
+        status_text.text(f"Analyzing chat {i+1}/{batch_size}: {chat_id}")
+        
+        try:
+            with debug_log:
+                st.write(f"Processing chat {i+1}: {chat_id}")
+                content_length = len(chat.get('processed_content', ''))
+                st.write(f"Content length: {content_length}")
+            
+            # Analyze chat with error handling with detailed error logging
+            try:
                 data = analyze_single_chat(
-                    chat, rules, target_language, prompt_path, provider_internal_name, model_name
+                    chat, rules, kb, target_language, prompt_path, provider_internal_name, model_name
                 )
                 
                 if data and data.get("success"):
                     with debug_log:
-                        st.write(f"Successfully analyzed chat {i+1}")
+                        st.write(f"✅ Successfully analyzed chat {i+1}")
                     
                     results.append(data["result"])
                     st.success(f"Successfully analyzed chat {i+1}: {chat_id}")
                 else:
                     with debug_log:
-                        st.write(f"Failed to analyze chat {i+1}: {data.get('error', 'Unknown error')}")
+                        st.write(f"❌ Failed to analyze chat {i+1}")
+                        st.write(f"Error: {data.get('error', 'Unknown error') if data else 'No data returned'}")
                     
                     failures.append({
                         "chat_id": chat_id,
                         "index": i + 1,
-                        "error": data.get('error', 'Unknown error')
+                        "error": data.get('error', 'Unknown error') if data else "No data returned"
                     })
-                    st.error(f"Failed to analyze chat {i+1}: {chat_id} - {data.get('error', 'Unknown error')}")
+                    st.error(f"Failed to analyze chat {i+1}: {chat_id} - {data.get('error', 'Unknown error') if data else 'No data returned'}")
             
-            except Exception as e:
+            except Exception as analyze_error:
                 with debug_log:
-                    st.write(f"Exception analyzing chat {i+1}: {str(e)}")
+                    st.write(f"❌ Exception during analysis: {str(analyze_error)}")
                     import traceback
                     st.write(traceback.format_exc())
                 
                 failures.append({
                     "chat_id": chat_id,
                     "index": i + 1,
-                    "error": str(e)
+                    "error": str(analyze_error)
                 })
-                st.error(f"Error analyzing chat {i+1}: {chat_id} - {str(e)}")
-            
-            # Update progress
-            progress_value = (i + 1) / batch_size
-            progress_bar.progress(progress_value)
-    
-    # Use concurrent processing for larger batches
-    else:
-        # Add some backoff for larger batches - reduce max_workers if batch is large
-        if batch_size > 10 and max_workers > 2:
-            max_workers = 2
-            st.info(f"Large batch detected - reducing concurrency to {max_workers} workers")
+                st.error(f"Error analyzing chat {i+1}: {chat_id} - {str(analyze_error)}")
         
-        with debug_log:
-            st.write(f"Using concurrent processing with {max_workers} workers for batch of {batch_size} chats")
-        
-        # Process in batches with progress tracking
-        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-            # Create a list of futures for better tracking
-            futures = []
-            for i, chat in enumerate(selected_chats):
-                # Add a small delay between submissions to avoid overwhelming the API
-                if i > 0:
-                    time.sleep(min_delay / max_workers)
-                
-                with debug_log:
-                    st.write(f"Submitting chat {i+1} for analysis: {chat['id']}")
-                
-                future = executor.submit(
-                    analyze_single_chat, 
-                    chat, 
-                    rules, 
-                    target_language, 
-                    prompt_path, 
-                    provider_internal_name, 
-                    model_name
-                )
-                futures.append((future, i, chat['id']))
+        except Exception as outer_error:
+            with debug_log:
+                st.write(f"❌ Outer exception for chat {i+1}: {str(outer_error)}")
+                import traceback
+                st.write(traceback.format_exc())
             
-            # Process results as they complete
-            completed = 0
-            for future, chat_index, chat_id in futures:
-                try:
-                    # Wait for the future with a timeout
-                    with debug_log:
-                        st.write(f"Waiting for result of chat {chat_index+1}: {chat_id}")
-                    
-                    data = future.result(timeout=120)  # 2-minute timeout
-                    
-                    if data and data.get("success"):
-                        with debug_log:
-                            st.write(f"Successfully analyzed chat {chat_index+1}")
-                        
-                        results.append(data["result"])
-                        st.success(f"Successfully analyzed chat {chat_index+1}: {chat_id}")
-                    else:
-                        with debug_log:
-                            st.write(f"Failed to analyze chat {chat_index+1}: {data.get('error', 'Unknown error')}")
-                        
-                        failures.append({
-                            "chat_id": chat_id,
-                            "index": chat_index + 1,
-                            "error": data.get('error', 'Unknown error') if data else "No data returned"
-                        })
-                        st.error(f"Failed to analyze chat {chat_index+1}: {chat_id} - {data.get('error', 'Unknown error') if data else 'No data returned'}")
-                    
-                except concurrent.futures.TimeoutError:
-                    with debug_log:
-                        st.write(f"Timeout analyzing chat {chat_index+1}: {chat_id}")
-                    
-                    failures.append({
-                        "chat_id": chat_id,
-                        "index": chat_index + 1,
-                        "error": "Analysis timed out after 2 minutes"
-                    })
-                    st.error(f"Timeout analyzing chat {chat_index+1}: {chat_id}")
-                    
-                except Exception as e:
-                    with debug_log:
-                        st.write(f"Exception analyzing chat {chat_index+1}: {str(e)}")
-                        import traceback
-                        st.write(traceback.format_exc())
-                    
-                    failures.append({
-                        "chat_id": chat_id,
-                        "index": chat_index + 1,
-                        "error": str(e)
-                    })
-                    st.error(f"Error analyzing chat {chat_index+1}: {chat_id} - {str(e)}")
-                
-                # Update progress
-                completed += 1
-                progress_value = completed / batch_size
-                progress_bar.progress(progress_value)
-                status_text.text(f"Processed {completed} of {batch_size} chats...")
-                
-                # Small delay to prevent UI from freezing
-                time.sleep(0.1)
-
-    with debug_log:
-        st.write(f"Batch processing complete. Successful: {len(results)}, Failed: {len(failures)}")
+            failures.append({
+                "chat_id": chat_id,
+                "index": i + 1,
+                "error": f"Outer error: {str(outer_error)}"
+            })
+            st.error(f"Outer error for chat {i+1}: {chat_id} - {str(outer_error)}")
+        
+        # Update progress
+        progress_value = (i + 1) / batch_size
+        progress_bar.progress(progress_value)
     
     # Finalize progress
     progress_bar.progress(1.0)
+    
+    # Final status report
+    with debug_log:
+        st.write(f"Batch processing complete: {len(results)} successes, {len(failures)} failures")
+        if results:
+            st.write("Results found - should be displayed")
+        else:
+            st.write("No results were generated")
+            st.write("Failures:")
+            for failure in failures:
+                st.write(f"• Chat {failure['index']} (ID: {failure['chat_id']}): {failure['error']}")
     
     # Summary message
     if len(results) == batch_size:
@@ -375,12 +354,17 @@ def process_batch_analysis(selected_chats, rules, target_language, prompt_path, 
     
     # Show failures in an expander
     if failures:
-        with st.expander("View Analysis Failures"):
+        with st.expander("View Analysis Failures", expanded=True):
             st.write("The following chats could not be analyzed:")
             for failure in failures:
                 st.write(f"• Chat {failure['index']} (ID: {failure['chat_id']}): {failure['error']}")
     
+    # Check if we got any results
+    if not results:
+        st.error("No results were generated from batch analysis. Please check the Debug Log for details.")
+    
     return results
+                
 
 def render_batch_processing_ui():
     """Render a simplified UI for batch processing with reduced page resets"""
@@ -511,31 +495,13 @@ def visualize_batch_results(results, rules):
     overall_scores = [result.get('weighted_overall_score', 0) for result in results]
     avg_score = sum(overall_scores) / len(overall_scores) if overall_scores else 0
     
-    # Determine quality level with fallback options (similar to chat_qa.py)
+    # Determine quality level
     quality_level = "Unknown"
-    
-    # First try using scoring_system and quality_levels
     if "scoring_system" in rules and "quality_levels" in rules["scoring_system"]:
         for level in rules["scoring_system"]["quality_levels"]:
             if level["range"]["min"] <= avg_score <= level["range"]["max"]:
                 quality_level = level["name"]
                 break
-    # Fallback to score_ranges if available
-    elif "score_ranges" in rules:
-        for level_name, level_range in rules["score_ranges"].items():
-            if level_range["min"] <= avg_score <= level_range["max"]:
-                quality_level = level_name.capitalize()
-                break
-    # Use simple quality level determination as final fallback
-    else:
-        if avg_score >= 90:
-            quality_level = "Excellent"
-        elif avg_score >= 80:
-            quality_level = "Good"
-        elif avg_score >= 70:
-            quality_level = "Needs Improvement"
-        else:
-            quality_level = "Poor"
     
     # Set color class based on quality level
     color_class = "score-box-needs-improvement"  # Default
@@ -559,41 +525,26 @@ def visualize_batch_results(results, rules):
     # Create a simplified summary table
     st.subheader("Summary of All Chat Scores")
     
-    # Prepare data for table - simplified (removed Language column)
+    # Prepare data for table - simplified
     summary_data = []
     for i, result in enumerate(results):
         chat_id = result.get('chat_id', f"Chat_{i+1}")
         score = result.get('weighted_overall_score', 0)
+        language = result.get('detected_language', 'Unknown')
         
-        # Determine quality level for this chat (with fallbacks)
+        # Determine quality level for this chat
         chat_quality = "Unknown"
         if "scoring_system" in rules and "quality_levels" in rules["scoring_system"]:
             for level in rules["scoring_system"]["quality_levels"]:
                 if level["range"]["min"] <= score <= level["range"]["max"]:
                     chat_quality = level["name"]
                     break
-        # Fallback to score_ranges if available
-        elif "score_ranges" in rules:
-            for level_name, level_range in rules["score_ranges"].items():
-                if level_range["min"] <= score <= level_range["max"]:
-                    chat_quality = level_name.capitalize()
-                    break
-        # Use simple quality level determination as final fallback
-        else:
-            if score >= 90:
-                chat_quality = "Excellent"
-            elif score >= 80:
-                chat_quality = "Good"
-            elif score >= 70:
-                chat_quality = "Needs Improvement"
-            else:
-                chat_quality = "Poor"
         
         summary_data.append({
             "Chat": chat_id,
             "Overall Score": f"{score:.2f}",
-            "Quality": chat_quality
-            # Removed "Language" column
+            "Quality": chat_quality,
+            "Language": language
         })
     
     # Display table
@@ -630,7 +581,7 @@ def visualize_batch_results(results, rules):
     detailed_csv_file = io.BytesIO(detailed_csv_data.encode('utf-8'))
     
     # Centered single download button
-    _, center_col, _ = st.columns([1, 1, 1])
+    _, center_col, _ = st.columns([1, 2, 1])
     with center_col:
         st.download_button(
             label="Download Detailed Analysis (CSV)",
@@ -639,3 +590,4 @@ def visualize_batch_results(results, rules):
             mime="text/csv",
             key=f"detailed_dl_{batch_id}"
         )
+        
