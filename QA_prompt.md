@@ -18,6 +18,7 @@ Pepperstone is a regulated forex broker. Customer service interactions should:
 
 The evaluation should assess:
 
+
 Clarity & Professionalism – How well the agent conveys information in line with Pepperstone’s brand.
 Empathy & Tone – Whether the agent acknowledges customer emotions appropriately while staying professional.
 Accuracy & Compliance – Ensuring correct information that aligns with forex trading regulations and Pepperstone policies.
@@ -26,6 +27,7 @@ Documentation & Reporting – Proper tagging, logging, and follow-up actions.
 Cultural Considerations for Specific Languages
 Chinese (Simplified & Traditional)
 Formality & Politeness
+
 
 Customer service should maintain a formal yet approachable tone.
 Use “您 (nín)” instead of “你 (nǐ)” to show professionalism.
@@ -99,8 +101,19 @@ Customers expect friendly, engaging responses, but not overly casual.
 Example:
 Bad: "Seu pedido está sendo processado."
 Better: "Já estamos cuidando do seu pedido e em breve traremos novidades!"
-Compliance Considerations
 
+## Knowledge Base Assessment
+When evaluating the transcript against the internal Knowledge Base (KB):
+- **Identify** if the customer asks a question that has a clear match in the KB.
+- **Only** assess KB adherence for these clearly matched questions.
+- **Look for contradictions** rather than expecting exact matches with KB answers.
+- If a question isn't covered in the KB, don't penalize the agent for using their expertise.
+- For questions not covered in the KB, score should be based on general accuracy and compliance with policies.,
+- Agent may personalize KB answers but must maintain the core information and policy details.,
+- Give full score when answers align with KB information, even if not verbatim.,
+- If the agent's answer is correct but not aligned with the KB, score should be based on overall accuracy and compliance with policies.
+
+## Compliance Considerations
 Avoid phrasing that implies investment recommendations.
 Example:
 Bad: "Este ativo pode gerar lucros elevados."
