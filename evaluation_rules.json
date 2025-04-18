@@ -38,7 +38,7 @@
         "Empathy Must be shown when the customer faces issues or feels frustrated.",
         "Example of Empathy: 'I completely understand how frustrating this must be, and I sincerely apologize for the delay. Let me check the status for you right away.'",
         "Balanced tone between formal and conversational.",
-        "Avoid overly direct or informal responses (e.g., 'Send me the details, and I will check.' or 'Hey there! No worries, I’ll check for you now.')"
+        "Avoid overly direct or informal responses (e.g., 'Send me the details, and I will check.' or 'Hey there! No worries, I'll check for you now.')"
       ]
     },
     {
@@ -64,6 +64,23 @@
       ]
     },
     {
+      "name": "Knowledge Base Adherence",
+      "description": "Agent's response aligns with standard answers provided in the internal Knowledge Base for common questions.",
+      "weight": 1.0,
+      "category": "Accuracy & Compliance",
+      "guidelines": [
+        "Only evaluate KB adherence when a customer's question clearly matches something in the KB",
+        "Agent may use their own expertise and words when responding to questions not covered in the KB",
+        "Focus on identifying contradictions with KB information rather than expecting verbatim answers",
+        "When a customer asks a question covered in the Knowledge Base, the agent's answer should contain the key information from the KB.",
+        "Agent should not contradict information in the Knowledge Base.",
+        "For questions not covered in the KB, score should be based on general accuracy and compliance with policies.",
+        "Agent may personalize KB answers but must maintain the core information and policy details.",
+        "Give full score when answers align with KB information, even if not verbatim.",
+        "If the agent's answer is correct but not aligned with the KB, score should be based on overall accuracy and compliance with policies."
+      ]
+    },
+    {
       "name": "Compliance with Internal & Regulatory Policies",
       "description": "Adheres to internal guidelines, AML/KYC requirements, and financial industry regulations.",
       "weight": 1.0,
@@ -82,7 +99,7 @@
       "category": "Issue Identification & Troubleshooting",
       "guidelines": [
         "Uses effective probing questions to identify the client's issue accurately.",
-        "Examples of probing questions: 'Could you confirm the transaction ID?', 'Can you specify the exact issue you’re facing?'"
+        "Examples of probing questions: 'Could you confirm the transaction ID?', 'Can you specify the exact issue you're facing?'"
       ]
     },
     {
@@ -184,6 +201,7 @@
       "name": "Accuracy & Compliance",
       "parameters": [
         "Accuracy of Response",
+        "Knowledge Base Adherence",
         "Compliance with Internal & Regulatory Policies"
       ]
     },
