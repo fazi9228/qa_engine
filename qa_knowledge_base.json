@@ -1,0 +1,405 @@
+
+{
+  "qa_pairs": [
+    {
+      "question": "Does Pepperstone offer MAM/PAMMs?",
+      "answer": "Yes, Pepperstone offers MAM (Multi-Account Manager) and PAMM (Percentage Allocation Management Module) solutions as part of our Pepperstone Partners program. These tools are designed for qualified and experienced fund managers.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "What is the difference between a Standard Account and a Razor account?",
+      "answer": "A Standard Account is a simple account with the commission built into the spread, making it perfect for beginners. A Razor account, on the other hand, offers raw spreads with a small commission, ideal for experienced traders who want more transparency in pricing.",
+      "category": "Account"
+    },
+    {
+      "question": "Am I eligible to become an Affiliate?",
+      "answer": "At Pepperstone, we take great pride in our award-winning customer service, competitive pricing, and premium trading products and platforms. To become an affiliate, you must meet certain criteria, such as holding relevant licenses or possessing significant industry expertise.",
+      "category": "Partners"
+    },
+    {
+      "question": "What are ID verification requirements?",
+      "answer": "For ID verification, you need to provide documents such as a Passport, National ID, or Driver’s License. Proof of Address documents (issued within the last 6 months) are also required. The whole image of the ID is encouraged but not mandatory unless compliance requires it.",
+      "category": "Verification"
+    },
+    {
+      "question": "How can I get my TEMP accounts approved?",
+      "answer": "Approving additional TEMP accounts is primarily a support task. TEMP accounts are created when you request an additional live account, but the system is unable to create it automatically, so it is sent to the relevant department for review and approval.",
+      "category": "Account"
+    },
+    {
+      "question": "How long does it take for Application Processing Time?",
+      "answer": "For Electronic Verification, your verification will be processed almost instantly. If manual verification is required, Pepperstone will get back to you within 24 business hours via email.",
+      "category": "Application"
+    },
+    {
+      "question": "How to apply for a Pepperstone Pro?",
+      "answer": "This is a self-certification process that only takes a few minutes, available in the Secure Client Area. You will need to confirm your eligibility and agree to the terms and conditions.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "Can I have more than one Pepperstone account?",
+      "answer": "If you have an individual Pepperstone account (as opposed to a joint or company account), you can have multiple accounts. Live Trading Accounts allow up to 10 active unfunded accounts, and Demo Accounts can be created based on whether you have a live funded account.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "Does Pepperstone offer negative balance protection?",
+      "answer": "Yes, Pepperstone offers negative balance protection, ensuring that clients cannot lose more than their account balance.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "What's the minimum deposit for a live account?",
+      "answer": "The minimum deposit amount depends on the Payment Service Provider (PSP) and your country. Please verify the details when making a deposit, as this information is for reference purposes only.",
+      "category": "Account"
+    },
+    {
+      "question": "How do I upload my ID/verify my account?",
+      "answer": "To upload your ID, go to \"My Account\" and click ‘Applications’ or the blue 'Upload' button. You can upload your documents there. Pepperstone accepts scanned copies, but generally not black-and-white copies. Images taken by a digital camera or smartphone are preferred.",
+      "category": "Account"
+    },
+    {
+      "question": "How many Live Accounts and Demo Accounts can I have?",
+      "answer": "Clients can have up to 10 active live unfunded accounts. For Demo Accounts, you can create up to 10 demos if you have a live funded account. Without a live funded account, you are limited to 3 demos (1 MT4, 1 MT5, and 1 cTrader).",
+      "category": "Account"
+    },
+    {
+      "question": "How do I download the trading platforms (MT4, MT5, cTrader)?",
+      "answer": "You can download the trading platforms directly from the Pepperstone website. Links are provided for MetaTrader 4 (MT4), MetaTrader 5 (MT5), and cTrader.",
+      "category": "Trading"
+    },
+    {
+      "question": "Why can't I see the funds in my account after depositing?",
+      "answer": "Delays can occur due to intermediary banks or international processing times. If you don’t see the funds immediately, please wait for the processing time to complete.",
+      "category": "Account"
+    },
+    {
+      "question": "What are the payment methods available?",
+      "answer": "Pepperstone supports various payment methods, including bank transfers, credit/debit cards, and e-wallets like PayPal, Skrill, and Neteller. The availability of these methods may vary depending on your location.",
+      "category": "General"
+    },
+    {
+      "question": "My application was rejected. What can I do?",
+      "answer": "If your application was rejected, you should contact Pepperstone support for further clarification. They will guide you through the necessary steps to resolve any issues.",
+      "category": "Application"
+    },
+    {
+      "question": "My application was approved. What happens next?",
+      "answer": "Once your application is approved, you will receive an email confirmation. You can then log in to your account and start trading.",
+      "category": "Application"
+    },
+    {
+      "question": "What does additional information request for application involve?",
+      "answer": "At the Additional Details Page, there are two sections: confirming final user details (name, DOB) and filling in your address, nationality, and place of birth. National ID numbers can also be collected at this point.",
+      "category": "Application"
+    },
+    {
+      "question": "How do I log in to my MT4/5 account on my computer?",
+      "answer": "To log in to your MT4/5 account, open the platform, enter your login credentials, and select the Pepperstone server. You can find detailed instructions on the Pepperstone website.",
+      "category": "Account"
+    },
+    {
+      "question": "How do I log in to my MT4/5 account on my mobile device?",
+      "answer": "To log in on a mobile device, download the MT4/5 app, enter your account details, and select the Pepperstone server. Detailed instructions are available on the Pepperstone website.",
+      "category": "Account"
+    },
+    {
+      "question": "Why can’t I find Pepperstone on the TradingView iOS app?",
+      "answer": "Pepperstone may not be listed directly on the TradingView iOS app. However, you can connect your Pepperstone account to TradingView via the web version or other supported platforms.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "How do I download a trading statement on TradingView TA?",
+      "answer": "You can generate a trading statement by enabling the 'Email alerts' feature in the cTrader platform settings under 'Settings' > 'Email alerts' and ticking 'email statement'. You can also run historical statements directly from the platform.",
+      "category": "Trading"
+    },
+    {
+      "question": "How do I reset my password on cTrader?",
+      "answer": "To reset your password on cTrader, go to the login screen, click 'Forgot Password', and follow the instructions sent to your registered email.",
+      "category": "Platforms"
+    },
+    {
+      "question": "How do I change the default file download location in cTrader?",
+      "answer": "You can change the default file download location in cTrader by going to 'Settings' > 'General' > 'File Download Location' and selecting your preferred directory.",
+      "category": "Platforms"
+    },
+    {
+      "question": "How do I connect to a Windows VPS from Mac OS?",
+      "answer": "To connect to a Windows VPS from Mac OS, use the Remote Desktop app. Follow the on-screen wizard to configure the connection, and you’ll be able to access the VPS by double-clicking its icon in the app view.",
+      "category": "VPS"
+    },
+    {
+      "question": "How do I whitelist an email address to ensure I receive emails from Pepperstone?",
+      "answer": "To whitelist an email address, add Pepperstone’s email domain (e.g., @pepperstone.com) to your email client’s safe sender list. Instructions for this process vary depending on your email provider.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "Can algorithms run on cTrader Web or only on cTrader Automate?",
+      "answer": "Algorithms can run on both cTrader Web and cTrader Automate. However, cTrader Automate is specifically designed for automated trading strategies.",
+      "category": "Platforms"
+    },
+    {
+      "question": "How do I open another live account?",
+      "answer": "To open another live account, log in to your Secure Client Area, navigate to the 'Applications' section, and follow the prompts to create a new account.",
+      "category": "Account"
+    },
+    {
+      "question": "What are the requirements for a company application?",
+      "answer": "For a company application, you need the Certificate of Incorporation/Registration and one of the following: Certificate of Registered Office, Certificate of Directors and Secretary, or Certificate of Registered Shareholders.",
+      "category": "Application"
+    },
+    {
+      "question": "What are the steps to make MetaTrader 4 (MT4) automatically start after a VPS reboot?",
+      "answer": "To ensure MT4 starts automatically after a VPS reboot, create a shortcut to the MT4 terminal in the Windows Startup folder. This will launch the platform whenever the server restarts.",
+      "category": "Platforms"
+    },
+    {
+      "question": "How do I download my trading history from cTrader?",
+      "answer": "You can download your trading history from cTrader by enabling the 'Email alerts' feature in the platform settings and ticking 'email statement'. You can also generate historical statements directly from the platform.",
+      "category": "Trading"
+    },
+    {
+      "question": "Why can't I see my newly created trading account on TradingView?",
+      "answer": "If you can’t see your newly created trading account on TradingView, ensure that the account has been properly linked. You may need to reconnect the account or check for delays in synchronization.",
+      "category": "Account"
+    },
+    {
+      "question": "Can I request a sponsored VPS?",
+      "answer": "Yes, you can request a sponsored VPS if you meet the eligibility criteria, such as maintaining a minimum trading volume of USD 1,000,000 over a 60-day period.",
+      "category": "VPS"
+    },
+    {
+      "question": "What is the difference between a Pro and Retail account at Pepperstone?",
+      "answer": "A Pro account is designed for professional traders who meet specific criteria, while a Retail account is for individual traders. Pro accounts may offer different leverage and trading conditions compared to Retail accounts.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "How do I increase the hard disk space on my VPS?",
+      "answer": "To increase the hard disk space on your VPS, contact Pepperstone support. They can allocate additional space through the Beeks portal, though a server restart may be required.",
+      "category": "VPS"
+    },
+    {
+      "question": "What does the Employment and Income section require?",
+      "answer": "The Employment and Income section requires details about your employment status and income sources. This helps Pepperstone assess your financial situation and trading experience.",
+      "category": "General"
+    },
+    {
+      "question": "What is the Appropriateness Test?",
+      "answer": "The Appropriateness Test consists of questions about your trading experience and knowledge. It ensures that you understand the risks involved in trading and are suitable for the products offered.",
+      "category": "Account Types"
+    },
+    {
+      "question": "What is the Declaration section?",
+      "answer": "The Declaration section contains terms and conditions, privacy policies, legal documents, and electronic verification consent. You must agree to these terms to proceed with the application.",
+      "category": "General"
+    },
+    {
+      "question": "What are acceptable IDs for KYC?",
+      "answer": "Acceptable IDs for KYC include a Passport, National ID, or Driver’s License. The document must clearly show your full name, date of birth, and issue/expiry date.",
+      "category": "Verification"
+    },
+    {
+      "question": "What is acceptable Proof of Address documents for KYC?",
+      "answer": "Acceptable Proof of Address documents include utility bills or bank statements issued within the last six months. The document must show your name and physical address.",
+      "category": "Verification"
+    },
+    {
+      "question": "What are the deposit limits and fees for USDT (Tether)?",
+      "answer": "The minimum deposit amount for USDT (Tether) is $50, and there is no maximum limit. There are no deposit fees for USDT transactions.",
+      "category": "Deposit"
+    },
+    {
+      "question": "What are the deposit limits and fees for Cryptos (Finrax)?",
+      "answer": "The minimum deposit amount for cryptocurrencies via Finrax is $50, and there is no maximum limit. Deposit fees vary depending on the cryptocurrency used.",
+      "category": "Deposit"
+    },
+    {
+      "question": "Does Pepperstone offer a USDT deposit method?",
+      "answer": "Yes, Pepperstone supports deposits using USDT (Tether). Ensure you follow the correct deposit procedure to avoid delays.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "How do I deposit by USDT?",
+      "answer": "To deposit using USDT, log in to your Secure Client Area, select \"Deposit,\" choose USDT as the payment method, and follow the instructions provided.",
+      "category": "Deposit"
+    },
+    {
+      "question": "What are the Company Application ID Requirements?",
+      "answer": "For company applications, you need to provide the Certificate of Incorporation/Registration and one of the following: Certificate of Registered Office, Certificate of Directors and Secretary, or Certificate of Registered Shareholders.",
+      "category": "Application"
+    },
+    {
+      "question": "What happens if I want to sign up under a different license?",
+      "answer": "If you wish to switch licenses after signing up, contact Pepperstone support. They will guide you through the process of transferring your account to the desired license.",
+      "category": "General"
+    },
+    {
+      "question": "What is the requirement to be eligible for the VPS Service?",
+      "answer": "To qualify for the VPS service, clients must maintain an account balance of at least 500oratradingvolumeof1 million over a 60-day period.",
+      "category": "VPS"
+    },
+    {
+      "question": "How do I manage Pepperstone VPS?",
+      "answer": "You can manage your Pepperstone VPS through the BeeksFX portal. Use your login credentials to access the portal and configure your VPS settings.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "How do I set up Pepperstone VPS?",
+      "answer": "To set up Pepperstone VPS, log in to your Secure Client Area, navigate to the VPS section, and follow the prompts to activate and configure your VPS.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "How do I increase the hard disk space on my VPS?",
+      "answer": "To increase the hard disk space on your VPS, contact Pepperstone support. They can allocate additional space through the Beeks portal, though a server restart may be required.",
+      "category": "VPS"
+    },
+    {
+      "question": "How do I add funds to my trading account?",
+      "answer": "To add funds, log in to your Secure Client Area, select \"Deposit,\" choose your preferred payment method, and follow the instructions to complete the transaction.",
+      "category": "Account"
+    },
+    {
+      "question": "Where can I see if my deposit was successful?",
+      "answer": "After making a deposit, check your Secure Client Area or the \"Transactions\" section of your trading platform to confirm whether the deposit was successful.",
+      "category": "Deposit"
+    },
+    {
+      "question": "How long does it take for money to be added to my trading account after deposit?",
+      "answer": "Deposits are typically processed instantly, but delays can occur due to intermediary banks or international processing times. Contact support if the funds don’t appear within 24 hours.",
+      "category": "Account"
+    },
+    {
+      "question": "What is the difference for each account type?",
+      "answer": "Account types differ based on spreads, commissions, and features. For example, Standard accounts have higher spreads but no commission, while Razor accounts offer raw spreads with a small commission.",
+      "category": "Account"
+    },
+    {
+      "question": "What is the difference between a Retail and a Professional Account?",
+      "answer": "Retail accounts are designed for individual traders, while Professional accounts are for experienced traders who meet specific criteria, such as trading volume and financial expertise.",
+      "category": "Account"
+    },
+    {
+      "question": "What does the Additional Details Page require?",
+      "answer": "The Additional Details Page requires confirmation of your personal details, address, nationality, and place of birth. National ID numbers may also be collected here.",
+      "category": "General"
+    },
+    {
+      "question": "What is the KYC process?",
+      "answer": "The KYC (Know Your Customer) process involves verifying your identity and address through official documents like passports, utility bills, or bank statements.",
+      "category": "Verification"
+    },
+    {
+      "question": "What are the acceptable formats for ID documents?",
+      "answer": "Acceptable formats include scanned copies or images taken with a digital camera or smartphone. Black-and-white copies, screenshots, and faxed images are not accepted.",
+      "category": "General"
+    },
+    {
+      "question": "What is the maximum number of orders allowed per platform?",
+      "answer": "The maximum number of orders varies by platform:",
+      "category": "Platforms"
+    },
+    {
+      "question": "How do I log in to my MT5 account?",
+      "answer": "To log in to your MT5 account, open the platform, enter your account number and password, and select the appropriate Pepperstone server (e.g., Live or Demo).",
+      "category": "Account"
+    },
+    {
+      "question": "What is the difference between a demo and a live account?",
+      "answer": "Demo accounts use virtual funds for practice trading, while live accounts involve real money and actual market conditions.",
+      "category": "Account"
+    },
+    {
+      "question": "How do I open a joint account?",
+      "answer": "To open a joint account, both parties must provide their personal details and undergo the KYC process. Contact Pepperstone support for assistance.",
+      "category": "Account"
+    },
+    {
+      "question": "What is the process for opening a company account?",
+      "answer": "For company accounts, you need to provide corporate documents like the Certificate of Incorporation and details of authorized signatories. Follow the prompts in the Secure Client Area to apply.",
+      "category": "Account"
+    },
+    {
+      "question": "Are there any limits on the amount I can withdraw?",
+      "answer": "Withdrawal limits depend on your account balance and available free margin. Verify the details in your Secure Client Area before initiating a withdrawal.",
+      "category": "General"
+    },
+    {
+      "question": "Can I cancel my withdrawal request?",
+      "answer": "Yes, you can cancel a withdrawal request if it hasn’t been processed yet. Contact Pepperstone support immediately to request cancellation.",
+      "category": "Withdrawal"
+    },
+    {
+      "question": "How do I reset my investor password?",
+      "answer": "To reset your investor password, log in to your trading platform, go to the \"Settings\" or \"Password\" section, and follow the prompts to create a new password.",
+      "category": "General"
+    },
+    {
+      "question": "Do we have any indicator to track trade volume in MT4/5?",
+      "answer": "Yes, MT4/5 includes volume indicators that display trading activity. Use the \"Volumes\" tab to track trade volumes directly on your charts.",
+      "category": "Platforms"
+    },
+    {
+      "question": "How do I download my trading history?",
+      "answer": "To download your trading history, go to the \"History\" tab in your trading platform, select the desired date range, and export the data as a CSV or Excel file.",
+      "category": "Trading"
+    },
+    {
+      "question": "Why can’t I see my newly created trading account on TradingView?",
+      "answer": "If your new account doesn’t appear on TradingView, ensure it has been properly linked. You may need to reconnect the account or wait for synchronization.",
+      "category": "Account"
+    },
+    {
+      "question": "Can algorithms run on cTrader Web or only on cTrader Automate?",
+      "answer": "Algorithms can run on both cTrader Web and cTrader Automate, but cTrader Automate is specifically optimized for automated trading strategies.",
+      "category": "Platforms"
+    },
+    {
+      "question": "How do I whitelist an email address?",
+      "answer": "To whitelist an email address, add Pepperstone’s domain (e.g., @pepperstone.com) to your email client’s safe sender list. Instructions vary by email provider.",
+      "category": "General"
+    },
+    {
+      "question": "What should I do if my application was rejected?",
+      "answer": "If your application was rejected, contact Pepperstone support for clarification. They will guide you on resolving any issues and resubmitting your application.",
+      "category": "Application"
+    },
+    {
+      "question": "How do I upload my ID/documents?",
+      "answer": "To upload your ID/documents, log in to your Secure Client Area, go to the \"Upload Documents\" section, and follow the prompts to submit your files.",
+      "category": "General"
+    },
+    {
+      "question": "What is the exchange rate used for deposits and withdrawals?",
+      "answer": "The exchange rate for deposits and withdrawals is determined by third-party payment processors and reflects the real-time rate at the time of the transaction.",
+      "category": "Deposit"
+    },
+    {
+      "question": "How do I log in to my cTrader account?",
+      "answer": "To log in to your cTrader account, open the platform, enter your account number and password, and select the Pepperstone server (Live or Demo).",
+      "category": "Account"
+    },
+    {
+      "question": "What is the difference between a demo and a live account?",
+      "answer": "Demo accounts use virtual funds for practice trading, while live accounts involve real money and actual market conditions.",
+      "category": "Account"
+    },
+    {
+      "question": "What is the difference between a standard and a razor account?",
+      "answer": "A Standard account has higher spreads but no commission, while a Razor account offers raw spreads with a small commission.",
+      "category": "Account"
+    },
+    {
+      "question": "What is the difference between a retail and a professional account?",
+      "answer": "Retail accounts are for individual traders, while Professional accounts are for experienced traders who meet specific criteria, such as trading volume and financial expertise.",
+      "category": "Account"
+    },
+    {
+      "question": "How do I change the default file download location in cTrader?",
+      "answer": "To change the default file download location in cTrader, go to \"Settings\" > \"General\" > \"File Download Location\" and select your preferred directory.",
+      "category": "Platforms"
+    },
+    {
+      "question": "How do I connect to a Windows VPS from Mac OS?",
+      "answer": "To connect to a Windows VPS from Mac OS, use the Microsoft Remote Desktop app. Enter the VPS IP address and login credentials to establish the connection",
+      "category": "VPS"
+    }
+  ]
+}
