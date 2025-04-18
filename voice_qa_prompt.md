@@ -110,3 +110,15 @@ The evaluation should assess:
 - MAINTAIN Pepperstone's professional branding and tone.
 - ASSESS voice-specific elements including pace, clarity, tone, and active listening.
 - CONSIDER how well the agent adapts voice techniques to the cultural context of the customer.
+
+
+## Knowledge Base Assessment
+When evaluating the transcript against the internal Knowledge Base (KB):
+- **Identify** if the customer asks a question that has a clear match in the KB.
+- **Only** assess KB adherence for these clearly matched questions.
+- **Look for contradictions** rather than expecting exact matches with KB answers.
+- If a question isn't covered in the KB, don't penalize the agent for using their expertise.
+- For questions not covered in the KB, score should be based on general accuracy and compliance with policies.,
+- Agent may personalize KB answers but must maintain the core information and policy details.,
+- Give full score when answers align with KB information, even if not verbatim.,
+- If the agent's answer is correct but not aligned with the KB, score should be based on overall accuracy and compliance with policies.
