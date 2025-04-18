@@ -2,6 +2,7 @@ import streamlit as st
 import json
 from datetime import datetime
 import concurrent.futures
+from knowledge_base import KnowledgeBase
 
 # Import utilities from utils.py
 from utils import (
@@ -15,21 +16,7 @@ from utils import (
 )
 
 # Function to analyze a transcript with cultural considerations
-def analyze_chat_transcript(transcript, rules, target_language="en", prompt_template_path="QA_prompt.md", model_provider="anthropic", model_name=None):
-    """
-    Analyze a text chat transcript using the specified model and prompt template.
-    
-    Args:
-        transcript (str): The chat transcript text
-        rules (dict): Evaluation rules dictionary
-        target_language (str): Target language for analysis response ('en' or 'native')
-        prompt_template_path (str): Path to the prompt template file
-        model_provider (str): AI provider ("anthropic" or "openai")
-        model_name (str): Model name to use
-        
-    Returns:
-        dict: Analysis results or None if analysis failed
-    """
+def analyze_chat_transcript(transcript, rules, kb, target_language="en", prompt_template_path="QA_prompt.md", model_provider="anthropic", model_name=None):
     try:
         # Set default model name if not provided
         if not model_name:
@@ -37,226 +24,201 @@ def analyze_chat_transcript(transcript, rules, target_language="en", prompt_temp
                 model_name = "claude-3-7-sonnet-20250219"
             elif model_provider == "openai":
                 model_name = "gpt-4o"
-        
-        # Use cached language detection for better performance
-        text_sample = transcript[:200]  # Use a sample to reduce cache size
-        lang_code, lang_name = detect_language_cached(text_sample, model_provider)
-        
-        # Extract parameter names and descriptions from rules
+
+        # Use cached language detection
+        text_sample = transcript[:200]
+        _, lang_name = detect_language_cached(text_sample, model_provider)
+
+        # Extract parameters and build list
         parameters_list = ""
         for param in rules["parameters"]:
             parameters_list += f"- {param['name']}: {param['description']}\n"
-        
+
         # Extract scoring scale information
         scale_max = 100
         if "scoring_system" in rules and "score_scale" in rules["scoring_system"]:
             scale_max = rules["scoring_system"]["score_scale"]["max"]
-        
-        # Get scoring system information for the prompt
+
+        # Get scoring system info
         scoring_info = ""
         if "scoring_system" in rules and "quality_levels" in rules["scoring_system"]:
             scoring_info = "Use the following scoring scale:\n"
             for level in rules["scoring_system"]["quality_levels"]:
                 scoring_info += f"- {level['name']} ({level['range']['min']}-{level['range']['max']}): {level['description']}\n"
-        
-        # Load prompt template from file
+
+        # Load prompt template
         prompt_template = load_prompt_template(prompt_template_path)
-        
+
+        # Prepare KB Context with clearer instructions
+        kb_context = "\n\n## Internal Knowledge Base Guidance:\n"
+        kb_context += "The following are standard answers from our knowledge base for common questions. "
+        kb_context += "Only evaluate Knowledge Base adherence when customer questions clearly match KB content. "
+        kb_context += "For questions not covered in the KB, the agent should use their expertise appropriately. "
+        kb_context += "Focus on identifying contradictions with KB rather than expecting exact matches.\n\n"
+
+        kb_qa_pairs = kb.qa_pairs.get("qa_pairs", [])
+        if kb_qa_pairs:
+            for i, qa_pair in enumerate(kb_qa_pairs[:20]):  # Limit to 20 entries
+                kb_context += f"Q: {qa_pair.get('question', '')}\n"
+                kb_context += f"A: {qa_pair.get('answer', '')}\n"
+                kb_context += f"Category: {qa_pair.get('category', 'General')}\n\n"
+        else:
+            kb_context += "The knowledge base is currently empty. Evaluate based on general accuracy and procedures.\n"
+
         response_text = ""
-        
+
         if model_provider == "anthropic":
-            # Initialize client when needed
             client = initialize_anthropic_client()
             if not client:
                 st.error("Anthropic API key is required for Claude analysis.")
                 return None
-                
-            # Create a simplified system prompt for Claude that includes exact parameter names
+
             system_prompt = f"""You are a customer support QA analyst for Pepperstone, a forex broker.
-
-You must score the transcript for EXACTLY these parameters on a scale of 0-{scale_max}:
-{parameters_list}
-
-IMPORTANT: The transcript may contain anonymized sensitive information in the format [TYPE]. 
-For example, [AMOUNT], [EMAIL], [PHONE], [TRANSACTION_ID], etc. 
-These represent real sensitive data that has been removed for privacy. 
-When evaluating the transcript, consider these tags as if they were the actual information.
-
-{prompt_template}
-
-## Scoring System
-{scoring_info}
-
-## Response Format
-Your evaluation MUST be formatted as a valid JSON object with the following structure:
-```json
-{{
-  "Parameter Name": {{
-    "score": 85,
-    "explanation": "Brief explanation here",
-    "example": "Example from transcript here",
-    "suggestion": null
-  }},
-  ... for each parameter
-}}
-```
-The 'suggestion' field should be null if score is 80 or higher.
-YOUR ENTIRE RESPONSE MUST BE VALID JSON WITH NO ADDITIONAL TEXT.
-"""
-
-            user_prompt = f"""Analyze this customer support transcript and score EACH parameter listed in my instructions:
-
-{transcript}
-
-Remember to format your response as a valid JSON object with EXACT parameter names as keys, and each value being 
-an object with "score", "explanation", "example", and "suggestion" fields.
-The suggestion field should be null if score is 80 or higher.
-
-Return your explanation, examples, and suggestions in {lang_name if target_language == 'native' else 'English'}.
-"""
+            You will analyze customer support transcripts and score them on quality parameters.
+            YOUR RESPONSE MUST BE IN VALID JSON FORMAT.
             
+            You will evaluate how well the agent's responses match the Knowledge Base answers when a customer asks a question covered in the KB.
+            
+            You MUST return your analysis ONLY as a valid, parseable JSON object with no additional text, explanations, or markdown.
+            The JSON must have parameters as keys, each containing a nested object with 'score', 'explanation', 'example', and 'suggestion' fields.
+            """
+
+            # Insert KB context in the user prompt, not the system prompt
+            user_prompt = f"""Analyze this customer support transcript and score EACH parameter listed below. 
+            Return your analysis ONLY as a valid JSON object.
+            
+            Parameters to evaluate:
+            {parameters_list}
+            
+            {scoring_info}
+            
+            {kb_context}
+            
+            Transcript to analyze:
+            {transcript}
+            
+            Remember to evaluate if the agent's answers match the Knowledge Base information when relevant.
+            Your response must be a single valid JSON object with no additional text.
+            Each parameter must be a key in the JSON, with a nested object containing 'score', 'explanation', 'example', and 'suggestion' fields.
+            
+            Example format:
+            {{
+              "Parameter Name 1": {{
+                "score": 85,
+                "explanation": "Explanation text",
+                "example": "Example from transcript",
+                "suggestion": "Improvement suggestion"
+              }},
+              "Parameter Name 2": {{
+                "score": 90,
+                "explanation": "Explanation text",
+                "example": "Example from transcript",
+                "suggestion": "Improvement suggestion"
+              }}
+            }}
+            """
+
             try:
-                with st.sidebar.expander("Debug - Prompt", expanded=False):
-                    st.text("System prompt (excerpt):")
-                    st.text(system_prompt[:500] + "...")
-                
                 response = client.messages.create(
                     model=model_name,
                     system=system_prompt,
-                    messages=[
-                        {"role": "user", "content": user_prompt}
-                    ],
+                    messages=[{"role": "user", "content": user_prompt}],
                     max_tokens=4000,
                     temperature=0.0
+                    # Remove the response_format parameter as it's not supported yet
                 )
                 response_text = response.content[0].text
-                
-                with st.sidebar.expander("Debug - Response", expanded=False):
-                    st.text("Raw API response (excerpt):")
-                    st.text(response_text[:500] + "..." if len(response_text) > 500 else response_text)
-                
+
             except Exception as claude_error:
                 st.error(f"Claude API error: {str(claude_error)}")
                 return None
-            
+
         elif model_provider == "openai":
-            # Initialize client when needed
             client = initialize_openai_client()
             if not client:
                 st.error("OpenAI API key is required for GPT analysis.")
                 return None
-                
-            # Create a simplified system prompt for OpenAI that includes exact parameter names
-            system_prompt = f"""You are a QA analyst for Pepperstone, a forex broker. Score the support transcript."""
-            
-            # More structured user prompt with exact parameter names
+
+            system_prompt = f"""You are a QA analyst for Pepperstone, a forex broker. Score the support transcript according to the rules and context provided. 
+            Your response must be a valid JSON object."""
+
             user_prompt = f"""Score this support transcript on a scale of 0-{scale_max} for EXACTLY these parameters:
-{parameters_list}
+            {parameters_list}
+            
+            {scoring_info}
+            
+            {kb_context}
+            
+            Transcript to analyze:
+            {transcript}
+            
+            Return your analysis as a JSON object with each parameter as a key, containing a nested object with 'score', 'explanation', 'example', and 'suggestion' fields.
+            """
 
-NOTE: This transcript may contain anonymized data represented as [TYPE] tags (like [AMOUNT], [PHONE], etc.).
-Treat these as if they were the actual information when evaluating the conversation.
-
-TRANSCRIPT:
-{transcript}
-
-Format your response as a JSON object exactly like this:
-{{
-  "Parameter Name": {{
-    "score": 85,
-    "explanation": "Brief explanation",
-    "example": "Example from transcript",
-    "suggestion": null
-  }},
-  ... for each parameter
-}}
-
-Include suggestion only when score is below 80, otherwise set to null.
-"""
             try:
-                with st.sidebar.expander("Debug - Prompt", expanded=False):
-                    st.text("User prompt (excerpt):")
-                    st.text(user_prompt[:500] + "...")
-                
                 response = client.chat.completions.create(
                     model="gpt-4o",
                     messages=[
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt}
                     ],
-                    response_format={"type": "json_object"},
+                    response_format={"type": "json_object"},  # This is supported for OpenAI
                     temperature=0.0
                 )
-                
                 response_text = response.choices[0].message.content
-                
-                with st.sidebar.expander("Debug - Response", expanded=False):
-                    st.text("Raw API response (excerpt):")
-                    st.text(response_text[:500] + "..." if len(response_text) > 500 else response_text)
-                
+
             except Exception as openai_error:
                 st.error(f"OpenAI API error: {str(openai_error)}")
                 return None
+
         else:
             st.error(f"Unsupported model provider: {model_provider}")
             return None
-        
-        # Parse the response with improved error handling
+
+        # Parse the response
         analysis = parse_json_response(response_text)
-        
+
         if not analysis:
             st.error("Failed to parse API response to JSON")
+            st.code(response_text[:1000], language="text")  # Show first 1000 chars of response
             return None
-        
-        # Check if we need to scale scores (if API returns 0-10 but we expect 0-100)
-        if "scoring_system" in rules and "score_scale" in rules["scoring_system"]:
-            expected_max = 100
-            actual_max = rules["scoring_system"]["score_scale"]["max"]
-            
-            if actual_max == 10 and expected_max == 100:
-                # We need to scale up scores from 0-10 to 0-100
-                with st.sidebar.expander("Debug - Score Scaling", expanded=False):
-                    st.text(f"Scaling scores from 0-{actual_max} to 0-{expected_max}")
-                
-                # Scale all parameter scores
-                for param_name in analysis:
-                    if param_name != "weighted_overall_score" and isinstance(analysis[param_name], dict) and "score" in analysis[param_name]:
-                        orig_score = analysis[param_name]["score"]
-                        if isinstance(orig_score, (int, float)) and orig_score <= actual_max:
-                            analysis[param_name]["score"] = orig_score * 10
-        
+
         # Calculate weighted score
         total_weight = sum(param["weight"] for param in rules["parameters"])
         weighted_score = 0
-        
-        # Track missing parameters for debugging
         missing_params = []
-        
+
         for param in rules["parameters"]:
             param_name = param["name"]
-            if param_name in analysis:
-                weighted_score += analysis[param_name]["score"] * param["weight"]
+            if param_name in analysis and isinstance(analysis[param_name], dict) and "score" in analysis[param_name]:
+                score_value = analysis[param_name]["score"]
+                if isinstance(score_value, (int, float)):
+                    weighted_score += score_value * param["weight"]
+                else:
+                    st.warning(f"Invalid score type for parameter '{param_name}': {score_value}. Skipping in weighted average.")
+                    missing_params.append(f"{param_name} (invalid score)")
             else:
                 missing_params.append(param_name)
-        
+
         if missing_params:
-            with st.sidebar.expander("Debug - Missing Parameters", expanded=False):
-                st.warning(f"Parameters missing from API response: {', '.join(missing_params)}")
-        
-        weighted_score = weighted_score / total_weight if total_weight > 0 else 0
+            with st.sidebar.expander("Debug - Missing/Invalid Parameters", expanded=False):
+                st.warning(f"Parameters missing or invalid in API response: {', '.join(missing_params)}")
+
+        # Calculate final weighted score
+        if total_weight > 0:
+            weighted_score = weighted_score / total_weight
+        else:
+            weighted_score = 0
+
         analysis["weighted_overall_score"] = round(weighted_score, 2)
-        
-        # Add model provider info to the result
         analysis["model_provider"] = model_provider
         analysis["model_name"] = model_name
-        
-        with st.sidebar.expander("Debug - Final Analysis", expanded=False):
-            st.json(analysis)
-        
+
         return analysis
-    
+
     except Exception as e:
         st.error(f"Error analyzing transcript: {str(e)}")
-        st.exception(e)  # Show the full exception for debugging
+        st.exception(e)
         return None
     
 # Function to visualize chat analysis results
@@ -453,7 +415,8 @@ def render_chat_analysis_ui():
     return single_transcript, prompt_path
 
 # Function to process chat analysis
-def process_chat_analysis(transcript, rules, target_language="en", prompt_path="QA_prompt.md", 
+# Function to process chat analysis
+def process_chat_analysis(transcript, rules, kb, target_language="en", prompt_path="QA_prompt.md", 
                          provider_internal_name="anthropic", model_name=None, debug_mode=False):
     """
     Process a chat transcript analysis request
@@ -461,6 +424,7 @@ def process_chat_analysis(transcript, rules, target_language="en", prompt_path="
     Args:
         transcript (str): The chat transcript text
         rules (dict): Evaluation rules dictionary
+        kb (KnowledgeBase): Knowledge Base instance
         target_language (str): Target language for analysis ('en' or 'native')
         prompt_path (str): Path to the prompt template
         provider_internal_name (str): Provider name ("anthropic" or "openai")
@@ -522,6 +486,7 @@ def process_chat_analysis(transcript, rules, target_language="en", prompt_path="
         result = analyze_chat_transcript(
             transcript, 
             rules, 
+            kb,
             target_language,
             prompt_template_path=prompt_path,
             model_provider=provider_internal_name,
