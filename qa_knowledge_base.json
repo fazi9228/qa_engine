@@ -906,67 +906,65 @@
       "answer": "CS is able to check swap/commission rate and calculate swap charge for client. However, if there's a scenario where we are unsure of the result that we calculate and the result differs from the amount on trading platform, CS needs to collect: 1. Trading account number, 2. Trade ID/Order ID.",
       "category": "Trading"
     },
-    [
-      {
-        "question": "When I enter my email to register new account, there's message showing 'we could not register this email address'?",
-        "answer": "The client is likely to have already registered an account with this email. The CSA should ask the client for their email address and check the Admin Portal to see if the account exists. If found, please advise the client as follow: 'Thank you for waiting, upon checking you have registered an account with this email already. Could you please try to login with this email address or proceed to reset your password for you to be able to access to your Pepperstone account?'",
-        "category": "New Registration"
-      },
-      {
-        "question": "In some cases, clients may not reach the deposit page due to an unknown glitch",
-        "answer": "CS should first attempt to reproduce and troubleshoot the issue before escalating it to the Payment/IT team. Often, these troubleshooting steps can resolve the glitch without the need for further escalation. 1. Collect all needed information: Trading account number, Deposit method, Screenshot/Error message pop-up. 2. Reproduce the issue from CS's SCA using the same method. If no issue is found, CS can guide the client through basic troubleshooting steps: Re-login, Re-connect the internet, Update application, Try incognito window, Try different devices. 3. If the issue persists on CS's side: escalate it to the Payments Operations Team. 4. The Payments team will further investigate the issue and provide advice to CS.",
-        "category": "Issue Encountered During the Deposit"
-      },
-      {
-        "question": "When click 'Confirm' the withdrawal email, it does not bring client to anywhere?",
-        "answer": "If client is using Pepperstone app/mobile phone: Clear/remove the opening apps/browser's tabs, Switch to use website version of SCA, not application, Switch to use PC/laptop if the issue persists. If client is using PC/laptop: Clear cache, cookers, browser history, Change to another browser.",
-        "category": "Confirm Withdrawal"
-      },
-      {
-        "question": "Client could not find 'Pepperstone' from Trading Panel on iOS app",
-        "answer": "As TradingView disabled the show more option, workaround we can provide to the client is: Login to TradingView in web browser or desktop app, Find Pepperstone broker and mark it as a favorite, After that Pepperstone should appear in the the list on iOS.",
-        "category": "Connect SCA with TradingView"
-      },
-      {
-        "question": "Client could not receive email from 'noreply@tradingview.com' to connect TradingView with Pepperstone",
-        "answer": "Client may need to whitelist noreply@tradingview.com, following steps for their email provider. For Gmail: Log in to your Gmail account, Click the Settings gear icon and select See all settings, Navigate to Filters and Blocked Addresses and select Create a new filter, Enter the emails or domains you want to add to the Gmail whitelist into the From section, Click Create filter to confirm, Put a mark next to Never send it to Spam, and Click Create filter again to save settings. For Gmail mobile app: Open the Gmail app, Navigate to Spam or Junk folder, Click on the message you wish to view, Select Report not spam. If client still didn't get these emails, we will escalate further.",
-        "category": "Connect SCA with TradingView"
-      },
-      {
-        "question": "Client could not receive emails (Email Statements, Margin Call, Price Alert, etc.) from 'noreply@ctrader.com'",
-        "answer": "Client may need to whitelist noreply@ctrader.com, following steps for their email provider. For Gmail: Log in to your Gmail account, Click the Settings gear icon and select See all settings, Navigate to Filters and Blocked Addresses and select Create a new filter, Enter the emails or domains you want to add to the Gmail whitelist into the From section, Click Create filter to confirm, Put a mark next to Never send it to Spam, and Click Create filter again to save settings. For Gmail mobile app: Open the Gmail app, Navigate to Spam or Junk folder, Click on the message you wish to view, Select Report not spam. If client still didn't get these emails, we will escalate further.",
-        "category": "Receive emails from cTrader"
-      },
-      {
-        "question": "Cannot Log In - Page Not Loading",
-        "answer": "Regarding the issue about logging into your account, try these initial troubleshooting steps: If using the application, close and reopen it or restart your device. Check for updates to the application or reinstall it to use the latest version. Verify your internet connection, toggle it off and on, or connect to Wi-Fi for a more stable connection. Try accessing your account through a mobile web browser or another device. For web browsers, clear browsing history, delete cache and cookies, and use InPrivate or Incognito mode. If you still cannot log in after following these steps, reply with details, including screenshots or videos, so we can coordinate with the relevant team to assist you further.",
-        "category": "Logging into your Pepperstone account (SCA)"
-      },
-      {
-        "question": "Unable to Log In to cTrader Because Client Has Not Set Up Password for the First Time",
-        "answer": "You can download the cTrader platform from the following link: cTrader Download iOS, Android & Windows | Pepperstone and follow these steps: 1. To log into cTrader, you need to set your password by yourself. Enter the email registered with Pepperstone and click on 'Reset Password.' 2. You will receive an email titled [ACTION REQUIRED] Set cTrader ID password from cTrader. In the email, there will be a green button labeled 'Generate Password.' Click on this button to set your new password. 3. Follow the steps to set your password. Once completed, you can use the email and password you set to log into your cTrader account and start trading.",
-        "category": "Logging into cTrader"
-      },
-      {
-        "question": "Forgot password to Log In to cTrader",
-        "answer": "Setting a New Password to Log In to cTrader: 1. You can set a new password for your cTrader account by visiting the link 'Reset Your Password.' Enter the email registered with Pepperstone and click on 'Reset Password.' 2. You will receive an email titled Request to Reset Your cTrader ID Password from cTrader. In the email, there will be a green button labeled 'Reset Password.' Click on this button to set your new password. 3. Follow the steps to set your password. Once completed, you can use your email and new password to log into your cTrader account.",
-        "category": "Setting a New Password to Log In to cTrader"
-      },
-      {
-        "question": "Unable to find Pepperstone in Broker list on iOS mobile application",
-        "answer": "If you are using the TradingView application on your mobile device, due to application limitations, you cannot directly search for Broker Pepperstone. However, you can follow these steps to add our broker to your favorites for easy connection and able to find our Broker on the mobile application: 1. Log in to TradingView through a web browser: Authentication — TradingView 2. Click on the three-line menu bar and go to Products, then select Supercharts. 3. Click on the top left corner (your profile name) and select Connect to broker. Go to All brokers and search for the Pepperstone symbol. 4. Click the star icon at the top right corner of the Pepperstone symbol to add it to your favorites for easier connection next time. 5. Close and reopen the TradingView application on your mobile device and connect. You will find the Pepperstone broker option you added to your favorites.",
-        "category": "Connecting Broker Pepperstone with TradingView Platform"
-      },
-      {
-        "question": "Clicked Withdrawal Confirmation via Email but Unsuccessful",
-        "answer": "Regarding the issue about processing a withdrawal, try these initial troubleshooting steps: 1. Check your internet connection, toggle it off and on, or connect to Wi-Fi for a more stable connection. 2. Try accessing Pepperstone website through a mobile web browser or another device. 3. Additional recommendations for using a web browser include clearing your browsing history, deleting cache and cookies, and using InPrivate or Incognito mode (Shortcut Ctrl+Shift+N). If you have followed these steps and still cannot confirm the withdrawal, please reply with details, including screenshots or videos, so we can coordinate with the relevant team to assist you further.",
-        "category": "Unable to Confirm Withdrawal via Email"
-      },
-      {
-        "question": "There's pop-up message Password already updated but still unable to login with new password.",
-        "answer": "Regarding the issue about unable to login to trading account MT4/5 with updated password, try these initial troubleshooting steps: 1. Try accessing Pepperstone website through a different web browser or another device. 2. Recommend clearing your browsing history, deleting cache and cookies, and using InPrivate or Incognito mode (Shortcut Ctrl+Shift+N) 3. Login to your Pepperstone account and your email again and perform to reset new password. If your password has been changed successfully, you will find the pop-up message. If you have followed these steps and still cannot confirm the withdrawal, please reply with details, including screenshots or videos, so we can coordinate with the relevant team to assist you further.",
-        "category": "Unable to reset trading account password MT4/5"
-      }
-    ]
+    {
+      "question": "When I enter my email to register new account, there's message showing 'we could not register this email address'?",
+      "answer": "The client is likely to have already registered an account with this email. The CSA should ask the client for their email address and check the Admin Portal to see if the account exists. If found, please advise the client as follow: 'Thank you for waiting, upon checking you have registered an account with this email already. Could you please try to login with this email address or proceed to reset your password for you to be able to access to your Pepperstone account?'",
+      "category": "New Registration"
+    },
+    {
+      "question": "In some cases, clients may not reach the deposit page due to an unknown glitch",
+      "answer": "CS should first attempt to reproduce and troubleshoot the issue before escalating it to the Payment/IT team. Often, these troubleshooting steps can resolve the glitch without the need for further escalation. 1. Collect all needed information: Trading account number, Deposit method, Screenshot/Error message pop-up. 2. Reproduce the issue from CS's SCA using the same method. If no issue is found, CS can guide the client through basic troubleshooting steps: Re-login, Re-connect the internet, Update application, Try incognito window, Try different devices. 3. If the issue persists on CS's side: escalate it to the Payments Operations Team. 4. The Payments team will further investigate the issue and provide advice to CS.",
+      "category": "Issue Encountered During the Deposit"
+    },
+    {
+      "question": "When click 'Confirm' the withdrawal email, it does not bring client to anywhere?",
+      "answer": "If client is using Pepperstone app/mobile phone: Clear/remove the opening apps/browser's tabs, Switch to use website version of SCA, not application, Switch to use PC/laptop if the issue persists. If client is using PC/laptop: Clear cache, cookers, browser history, Change to another browser.",
+      "category": "Confirm Withdrawal"
+    },
+    {
+      "question": "Client could not find 'Pepperstone' from Trading Panel on iOS app",
+      "answer": "As TradingView disabled the show more option, workaround we can provide to the client is: Login to TradingView in web browser or desktop app, Find Pepperstone broker and mark it as a favorite, After that Pepperstone should appear in the the list on iOS.",
+      "category": "Connect SCA with TradingView"
+    },
+    {
+      "question": "Client could not receive email from 'noreply@tradingview.com' to connect TradingView with Pepperstone",
+      "answer": "Client may need to whitelist noreply@tradingview.com, following steps for their email provider. For Gmail: Log in to your Gmail account, Click the Settings gear icon and select See all settings, Navigate to Filters and Blocked Addresses and select Create a new filter, Enter the emails or domains you want to add to the Gmail whitelist into the From section, Click Create filter to confirm, Put a mark next to Never send it to Spam, and Click Create filter again to save settings. For Gmail mobile app: Open the Gmail app, Navigate to Spam or Junk folder, Click on the message you wish to view, Select Report not spam. If client still didn't get these emails, we will escalate further.",
+      "category": "Connect SCA with TradingView"
+    },
+    {
+      "question": "Client could not receive emails (Email Statements, Margin Call, Price Alert, etc.) from 'noreply@ctrader.com'",
+      "answer": "Client may need to whitelist noreply@ctrader.com, following steps for their email provider. For Gmail: Log in to your Gmail account, Click the Settings gear icon and select See all settings, Navigate to Filters and Blocked Addresses and select Create a new filter, Enter the emails or domains you want to add to the Gmail whitelist into the From section, Click Create filter to confirm, Put a mark next to Never send it to Spam, and Click Create filter again to save settings. For Gmail mobile app: Open the Gmail app, Navigate to Spam or Junk folder, Click on the message you wish to view, Select Report not spam. If client still didn't get these emails, we will escalate further.",
+      "category": "Receive emails from cTrader"
+    },
+    {
+      "question": "Cannot Log In - Page Not Loading",
+      "answer": "Regarding the issue about logging into your account, try these initial troubleshooting steps: If using the application, close and reopen it or restart your device. Check for updates to the application or reinstall it to use the latest version. Verify your internet connection, toggle it off and on, or connect to Wi-Fi for a more stable connection. Try accessing your account through a mobile web browser or another device. For web browsers, clear browsing history, delete cache and cookies, and use InPrivate or Incognito mode. If you still cannot log in after following these steps, reply with details, including screenshots or videos, so we can coordinate with the relevant team to assist you further.",
+      "category": "Logging into your Pepperstone account (SCA)"
+    },
+    {
+      "question": "Unable to Log In to cTrader Because Client Has Not Set Up Password for the First Time",
+      "answer": "You can download the cTrader platform from the following link: cTrader Download iOS, Android & Windows | Pepperstone and follow these steps: 1. To log into cTrader, you need to set your password by yourself. Enter the email registered with Pepperstone and click on 'Reset Password.' 2. You will receive an email titled [ACTION REQUIRED] Set cTrader ID password from cTrader. In the email, there will be a green button labeled 'Generate Password.' Click on this button to set your new password. 3. Follow the steps to set your password. Once completed, you can use the email and password you set to log into your cTrader account and start trading.",
+      "category": "Logging into cTrader"
+    },
+    {
+      "question": "Forgot password to Log In to cTrader",
+      "answer": "Setting a New Password to Log In to cTrader: 1. You can set a new password for your cTrader account by visiting the link 'Reset Your Password.' Enter the email registered with Pepperstone and click on 'Reset Password.' 2. You will receive an email titled Request to Reset Your cTrader ID Password from cTrader. In the email, there will be a green button labeled 'Reset Password.' Click on this button to set your new password. 3. Follow the steps to set your password. Once completed, you can use your email and new password to log into your cTrader account.",
+      "category": "Setting a New Password to Log In to cTrader"
+    },
+    {
+      "question": "Unable to find Pepperstone in Broker list on iOS mobile application",
+      "answer": "If you are using the TradingView application on your mobile device, due to application limitations, you cannot directly search for Broker Pepperstone. However, you can follow these steps to add our broker to your favorites for easy connection and able to find our Broker on the mobile application: 1. Log in to TradingView through a web browser: Authentication — TradingView 2. Click on the three-line menu bar and go to Products, then select Supercharts. 3. Click on the top left corner (your profile name) and select Connect to broker. Go to All brokers and search for the Pepperstone symbol. 4. Click the star icon at the top right corner of the Pepperstone symbol to add it to your favorites for easier connection next time. 5. Close and reopen the TradingView application on your mobile device and connect. You will find the Pepperstone broker option you added to your favorites.",
+      "category": "Connecting Broker Pepperstone with TradingView Platform"
+    },
+    {
+      "question": "Clicked Withdrawal Confirmation via Email but Unsuccessful",
+      "answer": "Regarding the issue about processing a withdrawal, try these initial troubleshooting steps: 1. Check your internet connection, toggle it off and on, or connect to Wi-Fi for a more stable connection. 2. Try accessing Pepperstone website through a mobile web browser or another device. 3. Additional recommendations for using a web browser include clearing your browsing history, deleting cache and cookies, and using InPrivate or Incognito mode (Shortcut Ctrl+Shift+N). If you have followed these steps and still cannot confirm the withdrawal, please reply with details, including screenshots or videos, so we can coordinate with the relevant team to assist you further.",
+      "category": "Unable to Confirm Withdrawal via Email"
+    },
+    {
+      "question": "There's pop-up message Password already updated but still unable to login with new password.",
+      "answer": "Regarding the issue about unable to login to trading account MT4/5 with updated password, try these initial troubleshooting steps: 1. Try accessing Pepperstone website through a different web browser or another device. 2. Recommend clearing your browsing history, deleting cache and cookies, and using InPrivate or Incognito mode (Shortcut Ctrl+Shift+N) 3. Login to your Pepperstone account and your email again and perform to reset new password. If your password has been changed successfully, you will find the pop-up message. If you have followed these steps and still cannot confirm the withdrawal, please reply with details, including screenshots or videos, so we can coordinate with the relevant team to assist you further.",
+      "category": "Unable to reset trading account password MT4/5"
+    }
   ]
 }
