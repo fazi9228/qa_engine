@@ -400,6 +400,573 @@
       "question": "How do I connect to a Windows VPS from Mac OS?",
       "answer": "To connect to a Windows VPS from Mac OS, use the Microsoft Remote Desktop app. Enter the VPS IP address and login credentials to establish the connection",
       "category": "VPS"
-    }
+    },
+    {
+      "question": "How do I handle delayed USDT deposits?",
+      "answer": "For delayed USDT deposits, CS needs to collect the following information to escalate to Payment: 1. Trading account, 2. Preference (if any), 3. TxID/HashID, 4. Receipt of transfer (external link/screenshot from Tronscan cannot be accepted).",
+      "category": "Deposit"
+    },
+    {
+      "question": "What should I do if my first PayPal deposit is not reflected?",
+      "answer": "When clients make their first PayPal deposit, it will not auto-reflect as we need to verify the client. CS needs to collect the following info to escalate to Payment: 1. Trading account to add fund in, 2. Preference (if any), 3. PayPal profile full name, 4. Receipt of transfer.",
+      "category": "Deposit"
+    },
+    {
+      "question": "How do I handle delayed deposits for other payment methods?",
+      "answer": "For delayed deposits using other methods, CS needs to collect the following information to escalate to Payment: 1. Trading account, 2. Preference (if any), 3. Deposit/Funding method, 4. Receipt of transfer (external link/screenshots cannot be accepted).",
+      "category": "Deposit"
+    },
+    {
+      "question": "What information is needed to escalate delayed withdrawals?",
+      "answer": "For delayed withdrawals, CS needs to collect the following information to escalate to Payment: 1. Trading account, 2. Preference (if any), 3. Date & Time requested withdrawal.",
+      "category": "Withdrawal"
+    },
+    {
+      "question": "What information is required to investigate slippage or high/wide spread issues?",
+      "answer": "For slippage or high/wide spread issues, CS needs to collect the following information to escalate to TI/Complaint team: 1. Trading account, 2. Trade Ticket Number(s), 3. The issue with Ticket Number(s), 4. Screenshots/Videos showing the issue (if any), 5. Expectation of client (if any).",
+      "category": "Trade Investigation"
+    },
+    {
+      "question": "How should I report a potentially hacked account or unauthorized trades?",
+      "answer": "For potentially hacked accounts or unauthorized trades, collect the following information to escalate to TI/Complaint team: 1. Trading account, 2. Trade Ticket Number(s), 3. The issue with Ticket Number(s), 4. Period of time that client suspects got hacked/had unauthorized trades took place, 5. If client used to share credential to anyone, 6. Screenshots/Videos showing the issue (if any), 7. Expectation of client (if any).",
+      "category": "Security"
+    },
+    {
+      "question": "What information is needed to report technical or system issues?",
+      "answer": "For technical or system issues, CS needs to collect the following information to escalate to TI/Complaint team: 1. Trading account, 2. Trade Ticket Number(s), 3. Trading platform, 4. The issue description, 5. Screenshots/Videos showing the issue (if any), 6. Expectation of client (if any).",
+      "category": "Platforms"
+    },
+    {
+      "question": "What's the process for negative balance waiver requests?",
+      "answer": "For negative balance waiver requests, CS needs to collect the following information to escalate to Market Risk team: 1. Trading account, 2. Negative balance amount, 3. First time request?, 4. If no, the accumulative negative balance amount.",
+      "category": "Account"
+    },
+    {
+      "question": "What information is needed from clients who want to become an IB?",
+      "answer": "For clients who want to become an IB, CS needs to collect the following information to share with Sales: 1. Name, 2. Email used to register with Pepperstone (if any), 3. Phone number, 4. Convenient time frame for discussion (office hours).",
+      "category": "Partners"
+    },
+    {
+      "question": "How do I link an account to an IB rebate scheme?",
+      "answer": "To link an account to an IB rebate scheme, CS needs to collect the following information to share with Partner: 1. Name, 2. Request type: link whole profile/specific trading account(s), 3. Trading account(s), 4. HOID/IB name.",
+      "category": "Partners"
+    },
+    {
+      "question": "What information is needed for account statement issues?",
+      "answer": "For account statement issues, CS needs to collect the following information to escalate to Operation team: 1. Trading Account number, 2. Screenshot of account statement, 3. Description of the issue.",
+      "category": "Account"
+    },
+    {
+      "question": "How can I get information about trading platform features?",
+      "answer": "For information requests about trading platform features, CS needs to collect: 1. Trading account number, 2. Trading platform, 3. Functions or features to check (e.g., DOM for cTrader pricing level 2), 4. Screenshot or example of functions, features, or data to check.",
+      "category": "Platforms"
+    },
+    {
+      "question": "What's needed to request additional trading accounts?",
+      "answer": "Due to Risk flags, client will not be able to create additional accounts. CS needs to collect the following information to escalate to Operation/Market Risk team: 1. Trading Platforms, 2. Account Types, 3. Leverage, 4. Trading Account Name (optional), 5. Currencies.",
+      "category": "Account"
+    },
+    {
+      "question": "What should I do if I have issues with swap/commission rates or charges?",
+      "answer": "CS is able to check swap/commission rate and calculate swap charge for client. However, if there's a scenario where we are unsure of the result that we calculate and the result differs from the amount on trading platform, CS needs to collect: 1. Trading account number, 2. Trade ID/Order ID.",
+      "category": "Trading"
+    },
+    {
+      "question": "What are the deposit limits for USDT (Tether)?",
+      "answer": "For USDT deposits, the minimum amount is 200, the maximum amount is 5,000, there is no deposit fee, and deposits are processed instantly.",
+      "category": "Deposit"
+    },
+    {
+      "question": "What are the deposit limits for cryptocurrencies via Finrax?",
+      "answer": "For cryptocurrency deposits via Finrax, the minimum amount is 40, the maximum amount is 750,000, there is no deposit fee, and deposits are processed instantly.",
+      "category": "Deposit"
+    },
+    {
+      "question": "What are the VPS eligibility requirements?",
+      "answer": "To qualify for the VPS service, clients must maintain an account balance of at least 500 or a trading volume of 1 million over a 60-day period.",
+      "category": "VPS"
+    },
+    {
+      "question": "What are the specifications of Pepperstone's VPS service?",
+      "answer": "Pepperstone's basic VPS service includes: 1CPU, 3GB RAM, 40GB SSD Hard Drive, Windows OS 2022/2019/2016 or CentOS Linux, located in New York (NY5) and London (LD4), with network latency between the VPS and Trade Server of 1-2 milliseconds.",
+      "category": "VPS"
+    },
+    {
+      "question": "How does the Active Trader Program work?",
+      "answer": "The Active Trader Program allows you to earn discounts, refunded daily based on your trading volume. Your discount depends on how many standard lots you trade each month - the more you trade, the higher your commissions discount. Unlike most programs, rebates are refunded daily directly into your trading account the day after a position is closed.",
+      "category": "Account Types"
+    },
+    {
+      "question": "What are the eligibility requirements for the Active Trader Program?",
+      "answer": "The Active Trader program is available for Pepperstone Pro clients who meet specific trading volume requirements. You must maintain the required trading volume for at least 3 months to remain eligible for the program.",
+      "category": "Account Types"
+    },
+    {
+      "question": "Can I be both under an IB and part of the Active Trader Program?",
+      "answer": "Unfortunately no, since the Active Trader program pays self-rebates using the rebate system, it's impossible to be under both an IB and the Active Trader Program simultaneously.",
+      "category": "Account Types"
+    },
+    {
+      "question": "What is the difference between hedging and netting accounts in MT5?",
+      "answer": "Pepperstone offers hedging by default, which allows you to have both buy and sell positions open on the same instrument simultaneously. Netting accounts combine all positions on the same instrument into a single net position. Changing from hedging to netting needs to be approved by Market Risk and not all cases get approved.",
+      "category": "Platforms"
+    },
+    {
+      "question": "How do I whitelist an email address to ensure I receive emails from Pepperstone?",
+      "answer": "To whitelist an email address from Pepperstone (such as noreply@ctrader.com or noreply@tradingview.com), add the domain to your email safe sender list. For Gmail, go to Settings > Filters and Blocked Addresses > Create a new filter, enter the email in the From field, create the filter, and select 'Never send it to Spam'.",
+      "category": "General"
+    },
+    {
+      "question": "What makes our platform special and better than other platforms?",
+      "answer": "Pepperstone was founded in 2010 in Melbourne, Australia by a team of experienced traders with a shared commitment to improve the world of online trading. As one of the largest forex brokers globally, we facilitate an average of US$12.55 billion in daily trades. Trusted by over 400,000 traders worldwide, Pepperstone is regulated by top-tier authorities including ASIC, SCB, CMA, CySEC, FCA, BaFin, and DFSA. We prioritize the security of our clients' funds by holding them in segregated accounts with tier 1 banks and offering a variety of fee-free funding options.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "Is scalping gold (XAUUSD) allowed during the initial market open (e.g., GMT+2 00:00–03:00 or the first 1–2 hours after liquidity returns)?",
+      "answer": "Pepperstone permits scalping strategies, including high-frequency trading (HFT), provided such activity does not breach platform usage guidelines or exploit pricing inefficiencies. There are no specific restrictions preventing scalping gold (XAUUSD) during early market hours. As long as the market is open, you can trade with us. If any instrument is unavailable for trading, our platform will display a notification when you attempt to place an order. However, market conditions during these hours may lead to increased spreads and slippage.",
+      "category": "Trading"
+    },
+    {
+      "question": "Are there hidden restrictions (e.g., minimum holding time, max trade frequency)?",
+      "answer": "While there are no formally stated minimum holding times or limits on trade frequency, activities considered aggressive or abusive may be reviewed.",
+      "category": "Trading"
+    },
+    {
+      "question": "Does your platform allow high-frequency scalping (holding trades for seconds/minutes) during this time?",
+      "answer": "Our platform allows high-frequency scalping, including holding trades for very short periods, during all regular trading hours. However, be aware that market conditions during early hours may affect execution quality.",
+      "category": "Trading"
+    },
+    {
+      "question": "Are there specific times when trading is restricted due to illiquidity (e.g., weekends, holidays, low-volume sessions)?",
+      "answer": "Trading is generally unavailable during weekends and recognized public holidays. Trading hours may vary for each instrument. Please refer to more information here: Trading Hours During Market Times | Pepperstone.",
+      "category": "Trading"
+    },
+    {
+      "question": "Where are these periods defined in your terms?",
+      "answer": "Details about trading hours and restrictions are defined in our Trading Terms and Conditions, which can be found in the Legal Documents section of our website.",
+      "category": "Trading"
+    },
+    {
+      "question": "What quantitative thresholds (e.g., spread > X pips, depth < Y lots) define illiquidity?",
+      "answer": "Although specific thresholds for defining illiquidity (such as spread width or order book depth) are not publicly listed, our policies outline the risks of trading during such periods. You may refer to the legal documents on our official website.",
+      "category": "Trading"
+    },
+    {
+      "question": "How are clients notified?",
+      "answer": "Clients are notified about illiquid market conditions through platform indicators and notifications. When attempting to place an order during such conditions, the platform will display relevant warnings.",
+      "category": "Trading"
+    },
+    {
+      "question": "Is order placement blocked during these periods?",
+      "answer": "As long as the market is open, you can trade. Order placement is only blocked when the market is officially closed.",
+      "category": "Trading"
+    },
+    {
+      "question": "Which clauses in your Client Agreement, Trading Terms, or Liquidity Provider Addendums: Prohibit trading during illiquid times? Describe consequences of doing so?",
+      "answer": "Pepperstone does not explicitly prohibit trading during low-liquidity periods, but we reserve the right to review trades that are suspected of exploiting market inefficiencies. For more information, you should refer to the link below to read all our terms and conditions: Legal documents | Pepperstone.",
+      "category": "Trading"
+    },
+    {
+      "question": "What is the process if a trade is deemed 'exploitative' (e.g., warning, profit removal, account closure)?",
+      "answer": "Should any trades be identified as exploitative, Pepperstone may take action in a fair and transparent manner. We have active monitoring conducted by our Professional Trading Specialists. To help prevent your trades from being flagged, we encourage you to review our legal documents available on our official website.",
+      "category": "Trading"
+    },
+    {
+      "question": "Do you provide evidence, such as liquidity provider data, to support enforcement?",
+      "answer": "When necessary, we can provide relevant data to support our decisions regarding trade reviews. This may include liquidity data if appropriate to the specific case.",
+      "category": "Trading"
+    },
+    {
+      "question": "Are you the counterparty to my trade?",
+      "answer": "As per our PDS, we are the main counterparty that you're exposed to. This means that we can offer faster execution speeds and therefore better price fills on your trades. This doesn't mean that we trade against you though, as the way we manage exposures is predominantly by netting off client orders against each other. As a non-dealing desk broker we do not control or influence price movements in the markets we offer. We source all pricing and liquidity from Tier 1 investment banks and financial institutions.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "As you are the main counter-party, you just win off my losses, correct?",
+      "answer": "No this is incorrect. It is in our best interests to provide great trading conditions and fast execution speeds so that clients can access quality pricing and fills on their orders to take advantage of moves in the market. By netting off client trades against each other, we make money primarily through commissions and spread. Where exposures breach group limits, our market risk team will manage this appropriately by engaging with our hedging counterparties.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "How many lots can I trade with before I start to endure slippage?",
+      "answer": "There is never a defined or fixed amount of liquidity at the top-of-book price that you see on your platform for any of the instruments we offer. Slippage can occur for a number of different reasons such as news events, illiquid trading hours and uncertainty/volatility in the market. You will find that there is generally higher volumes of liquidity available at the top of book price among our major FX pairs.",
+      "category": "Trading"
+    },
+    {
+      "question": "If I have a huge amount of dollars in my account, will you reduce my leverage? At what balance will you start reducing my leverage?",
+      "answer": "This will be decided at Pepperstone's discretion. Any decision to reduce the leverage we offer for your account is not determined by your account balance, it is based on your notional market exposures. Should we find that it's required to reduce your leverage, we will be in contact with you.",
+      "category": "Account"
+    },
+    {
+      "question": "Who are your liquidity providers?",
+      "answer": "We cannot publicly disclose our liquidity providers. However, we do have a document our clients can access which display the hedging counterparties that Pepperstone has a relationship with. It's important to remember that Pepperstone executes your trades, they are not executed directly with our LPs. Therefore, we are the main counterparty you are exposed to. We simply use our LPs to price the instruments we offer. This is clearly outlined in our PDS. https://files.pepperstone.com/legal/APAC_ROW/Hedging_Counterparty_Policy.pdf",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "Who is pricing my trade?",
+      "answer": "Pepperstone provides aggregated pricing from our large pool of Tier 1 liquidity sources, and feed this directly to your platform without intervention. We don't control or create the prices which are fed through our pricing aggregation system, rather we receive bid and ask quotes from our range of liquidity providers and we quote the best of these buy and sell prices on your platform. Dependent on varying factors, we may have up to 5-10 liquidity providers sending through pricing within the instrument you are trading. Your trade will execute on the best price that is received from any of those liquidity providers that are pricing that instrument at the time.",
+      "category": "Trading"
+    },
+    {
+      "question": "Do you offer Direct Market Access (DMA)?",
+      "answer": "Unfortunately we do not offer direct market access. DMA is direct market access with an exchange, as per definitions online, whereas we do not offer access to a specific exchange. The CFD products we offer are OTC products. DMA is a marketing term that may be used to slightly confuse clients. We are a non-dealing desk broker, and we feed liquidity directly to the trading platforms without broker intervention.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "How do you make money?",
+      "answer": "We primarily make money via the spread on instruments (the difference between the bid and ask price on your contract) and commissions (which will be reflected when you place a trade and varies depending on which platform and account type you use). More information can be found in section 7 of our Financial Services Guide (FSG).",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "Do you influence spreads?",
+      "answer": "We receive pricing and spread from our liquidity providers. We then add our spread and commission to that price. Pepperstone doesn't arbitrarily change these spreads or commissions. We offer spreads which are present in the Interbank or underlying market at any given time.",
+      "category": "Trading"
+    },
+    {
+      "question": "Do you offer negative balance protection? Why did my account go into negative?",
+      "answer": "As you are trading with our ASIC-licensed entity, we do not offer negative balance protection by default. Instead, Pepperstone has an automated stop out policy which attempts to protect against negative balances. This will close your trade(s) when your margin level falls to 20% or below if you are using Metatrader and 50% or below when using cTrader. However, in a fast moving market, this may occur after the account has already incurred a negative balance. In these instances we look to waive negative balances on a case by case basis, after a careful review of the closed trades which caused the negative balance. But any decision to do so is solely at our discretion.",
+      "category": "Account"
+    },
+    {
+      "question": "Am I on A book or B book?",
+      "answer": "The A and B book broker model is not something a broker of Pepperstone's size utilizes. Pepperstone internally matches clients trades against one another, excess exposure is then hedged in the market with our liquidity providers. This model ensures a fast execution speed, price stability and reduced trading costs for our clients.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "Where are my profits paid from?",
+      "answer": "All client money is kept in segregated client trust accounts which are separate from Pepperstone's operational and hedging funds.",
+      "category": "Account"
+    },
+    {
+      "question": "If you go insolvent, what happens to my money?",
+      "answer": "All client funds are held in segregated client trust accounts to ensure the security of client funds in the unlikely event of default. We hold these funds separate to our own, and we don't use these to fund our operations.",
+      "category": "Account"
+    },
+    {
+      "question": "When I enter my email, there's message showing 'we could not register this email address'?",
+      "answer": "The client is likely to have already registered an account with this email. The CSA should ask the client for their email address and check the Admin Portal to see if the account exists. If found, please advise the client as follow: 'Thank you for waiting, upon checking you have registered an account with this email already. Could you please try to login with this email address or proceed to reset your password for you to be able to access to your Pepperstone account?'",
+      "category": "Account"
+    },
+    {
+      "question": "What will happen if my application has been rejected?",
+      "answer": "Pepperstone periodically reviews all account applications to ensure they align with the company's risk management policies. If you receive a notification that your application to open a live trading account with Pepperstone does not fit the company's risk appetite, this means that, based on a comprehensive review, the application has been declined. As a result of this decision, your Pepperstone trading account will be closed. While this outcome is based on the company's policies, Pepperstone remains available to address any concerns or questions you may have.",
+      "category": "Application"
+    },
+    {
+      "question": "What should I do if I change my country of residence?",
+      "answer": "If you change address to a different country of residence, you will not be required to open a new user account under the license applicable for your new country. The client onboarding license only applies to NEW clients not existing clients.",
+      "category": "Account"
+    },
+    {
+      "question": "I have duplicate accounts across different licenses, what should I do?",
+      "answer": "A client should only have one user account with Pepperstone and you should confirm which user account you would like to keep. Suggested wording: Dear XXX, Thanks for your application to open a trading account with us. We have noticed that you have already established another account under a different Pepperstone license. Please note that you can only have one user account with Pepperstone and as such, can you please confirm which account you would like to open/keep.",
+      "category": "Account"
+    },
+    {
+      "question": "How can I reset my secure client area password?",
+      "answer": "To reset your secure client area password, go to our reset password webpage, provide your registered email address and click 'reset password'. We'll then email you with a link to create your new password. (Link to reset SCA password: https://secure.pepperstone.com/reset-password) Your new password MUST contain: 1 Capital Letter, 1 Number, 1 of these special characters: !$%&_-@, At least 8 characters. Please note that the secure client area uses your email address and not your trading account number to login.",
+      "category": "Account"
+    },
+    {
+      "question": "Client would like to waive negative balance",
+      "answer": "At Pepperstone, if client profile is 'Retail', we will auto-waive their negative balance in daily basis. However, if client profile is 'Pro', we will not guarantee for such auto-waiver. CS needs to ensure we will not promise the Pro client, instead we will inform them that CS will help escalate to the relevant department for review & we will update them the result/ final decision. Before escalating to backend team, CS will need to verify client identity, then confirm the trading account client & the amount of negative balance that client is referring to.",
+      "category": "Account"
+    },
+    {
+      "question": "Does Pepperstone offer/provide VPS Service?",
+      "answer": "Pepperstone offers to sponsor the VPS connection for clients who meet certain trading criteria. The criteria is defined as follows: Minimum trading volume of USD 1,000,000 (or equivalent in any currency/asset) over a 60-day period. More information on the criteria is outlined in our VPS terms & conditions, which you can read here: Pepperstone_Markets_Limited_SCB_VPS_Terms_and_Conditions.pdf. We understand the unique demands of experienced traders who rely on sophisticated trading strategies, and we've engineered a VPS service specifically tailored to elevate your trading experience.",
+      "category": "VPS"
+    },
+    {
+      "question": "Where are the VPS located?",
+      "answer": "The VPS location depends on a client's location: Clients located in Europe: LD4 (London) Clients located outside of Europe: NY4 (New York)",
+      "category": "VPS"
+    },
+    {
+      "question": "What is a virtual private server (VPS)?",
+      "answer": "A virtual private server, also known as a VPS, is a virtual computer that can be accessed and controlled remotely from anywhere. VPS allows traders to run automated algorithmic strategies, including expert advisors, 24 hours a day, 7 days a week, on a virtual machine, completely independent from their personal computer or internet connection. It's a versatile tool that gives traders power and speed without the need for physical hardware. The benefits of trading using VPS include reducing the chance of system downtime due to technology and connectivity failures while leveraging ultra-low latency, no matter where the trader is located globally.",
+      "category": "VPS"
+    },
+    {
+      "question": "How does a VPS work?",
+      "answer": "A VPS can be considered a remote personal desktop computer that can be remotely controlled from any device that is internet-enabled. Several VPSs are created on a server; each has its own set amount of compute power and data storage, so you're guaranteed what you need and signed up for every month.",
+      "category": "VPS"
+    },
+    {
+      "question": "What are the benefits of trading with a VPS?",
+      "answer": "Using a Virtual Private Server (VPS) for trading offers many benefits. Automated Trading: VPS allows traders to run automated algorithmic strategies, including expert advisors, on a virtual machine, completely independent from their personal computer or internet connection. Speed: VPS services could offer a faster execution speed which allows traders to make the most of market movements and potentially reduce slippage. Latency: Using a VPS for trading can provide traders with ultra-low latency regardless of geographical location. Reduced interruptions: VPS protects traders against power outages, system downtime, and connectivity failures. Instead, it offers traders an uninterrupted internet connection 24/7.",
+      "category": "VPS"
+    },
+    {
+      "question": "What is Pepperstone VPS hosting service?",
+      "answer": "Built on cutting-edge technology, Pepperstone's VPS Hosting Program offers effortless connectivity to Pepperstone's trading environment, allowing traders to enjoy advanced trading conditions and ultra-low latency.",
+      "category": "VPS"
+    },
+    {
+      "question": "What are the specifications of the Pepperstone sponsored VPS?",
+      "answer": "Pepperstone sponsored a basic VPS with the following specifications: Computer Specification: 1CPU, 3GB RAM, 40GB SSD Hard Drive. Operating System: Windows OS 2022, 2019, 2016 and CentOS Linux. Location: New York (NY5) and London (LD4). VPS Internet Speed: VPS Internet speed is subject to many factors, like location, network, the number of devices being used on the VPS, etc. Currently, the average VPS internet speed is above 100 mbps+. Network latency between the VPS and Trade Server: 1-2 milliseconds. Average order execution time when you place a trade using a VPS: 15-30 milliseconds. Average order execution time when you place a trade without using a VPS: This varies and depends on different situations, like client location, internet connection type, internet speed, device type, etc. In an ideal situation, the average execution time is 20–50 milliseconds. Both Proximity Clouds are connected via 10G links to the WAN layer for internet connectivity.",
+      "category": "VPS"
+    },
+    {
+      "question": "How do I manage Pepperstone VPS?",
+      "answer": "Setting up Pepperstone VPS is easy - simply follow the steps outlined below: 1. Download and open the RDP file provided to you in our Welcome Email 2. Click Connect 3. Choose the Administrator user and enter the temporary password provided in the Welcome Email. You will be prompted to set up a new password and log in again with the updated credentials. We suggest the following guidelines for choosing a secure password: 1. At least 8 characters long but 10 or more is better. 2. A combination of uppercase letters, lowercase letters, numbers, and symbols.",
+      "category": "VPS"
+    },
+    {
+      "question": "How do I connect to Pepperstone VPS?",
+      "answer": "To connect Pepperstone VPS, please follow steps below: 1. Download and open the RDP file provided to you in our welcome email. 2. Click Connect 3. Choose the Administrator user and enter the temporary password provided in the 'welcome email'. Once you enter the password you will be prompted to change the password. Choose a new password and log in with the updated password. We suggest the following guidelines for choosing a secure password: At least 8 characters long but 10 or more is better. A combination of uppercase letters, lowercase letters, numbers, and symbols.",
+      "category": "VPS"
+    },
+    {
+      "question": "How do I secure my Pepperstone VPS?",
+      "answer": "To secure your Pepperstone VPS, please follow steps below: 1. You must change your password the first time you log in. Choose a unique combination and do not share your password with others or between applications. 2. Your new password should be a minimum of 8 characters and contain a combination of upper case, lower case, and at least one number. 3. You must use the VPS for your own trading purposes. Sharing VPS login details with others can expose your account and funds to security and other risks.",
+      "category": "VPS"
+    },
+    {
+      "question": "Can I lose access to the VPS?",
+      "answer": "Pepperstone will continue to sponsor a trader's VPS expenses as long as the criteria are being met. If a trader fails to meet the criteria, they run the risk of losing access to their sponsored Pepperstone VPS. More information on the criteria is outlined in our VPS terms & conditions, which you can read here: Pepperstone_Markets_Limited_SCB_VPS_Terms_and_Conditions.pdf. Trading requirements are assessed on the last working day of every calendar month. Access to the VPS is lost if you fail to meet all trading volume criteria below: Trading volume of USD 1,000,000 or more (or the equivalent in any currency/asset) over a 60-day period. Please refer to the VPS terms and conditions here.",
+      "category": "VPS"
+    },
+    {
+      "question": "How do I restore/reapply Pepperstone VPS?",
+      "answer": "Clients who have lost access to their Pepperstone VPS can reapply at any point, provided they meet the eligibility criteria, by following the application steps.",
+      "category": "VPS"
+    },
+    {
+      "question": "How to install an Expert Advisor (EA) on your VPS terminal?",
+      "answer": "To install an Expert Advisor (EA) on your VPS terminal, please find below steps: 1. Install MetaTrader 4 or 5 platform 2. Open the MetaTrader 4 or 5 platform 3. Select 'File' from the main menu on the top left 4. Click on 'Open Data Folder' to open the folder 5. Select the 'MQL4' or 'MQL5' folder 6. Then open the 'Experts' folder 7. Drag and drop your EA file(s) into this folder 8. Restart MetaTrader for your changes to take effect or simply refresh the expert advisor list in the navigation menu 9. Once MetaTrader is running drag and drop your expert advisor from the navigator menu to your chart.",
+      "category": "VPS"
+    },
+    {
+      "question": "How to report VPS connectivity or related issues?",
+      "answer": "If you are facing any kind of issue with the VPS, please send a detailed email to support@pepperstone.com. explaining the issue, including a screenshot, error message, or a short video. Additionally, please include the below personal information: Name, Account number, Email address, VPS IP address.",
+      "category": "VPS"
+    },
+    {
+      "question": "How do I change the display language of the VPS?",
+      "answer": "When you install Microsoft Windows Server 2019 or Microsoft Windows Server 2022, English is set as the default display language. You can add other display languages at any time. To configure a new Windows display language, proceed as follows: Log in to the Remote Desktop server. Click Start, then click Settings. Select Time & Language. In the left bar, click Language. Click Add a language.",
+      "category": "VPS"
+    },
+    {
+      "question": "How often does the cCopy process Performance Fee (PF)?",
+      "answer": "Performance fee and management fee are processed every 1st of the month, unless the clients take any action that can trigger fees: Strategy Provider stops providing the strategy, Follower stops copying, Follower withdraws funds from the subaccount.",
+      "category": "Copy Trade"
+    },
+    {
+      "question": "Is there reverse copying on Pelican?",
+      "answer": "Unfortunately, reverse trading (copy Strategy Provider's order with opposite direction) is not available in Pelican app.",
+      "category": "Copy Trade"
+    },
+    {
+      "question": "How long will order be copied from Strategy Provider's orders on Pelican?",
+      "answer": "In average trades are copied in 10ms. However the time for the trade to get sent to and executed by the trade server can increase this time to 1 second, in some cases 2 seconds.",
+      "category": "Copy Trade"
+    },
+    {
+      "question": "When a client requests to delete their account, following the correct process here Request to Delete Account - KL Office - Confluence they no longer receive marketing emails from us. However, there is a case where a customer is still receiving them. How would we could help client?",
+      "answer": "Check again if we have already selected Email Opt-Out and Nurture Email in this SOP: Request to Delete Account - KL Office - Confluence. If they are already enabled, we can advise the client that they can unsubscribe from the emails they received.",
+      "category": "General"
+    },
+    {
+      "question": "A premium client needs to connect their Optuma charting program for live data and requires the Pepperstone server login and password. Can you assist?",
+      "answer": "Could raise an Ops ticket and ask in the Op-General channel for further approval checks.",
+      "category": "Platforms"
+    },
+    {
+      "question": "Cannot download statement on Pepperstone app?",
+      "answer": "For the Pepperstone trading account, there is no automated daily report, please advise the client can generate daily statements from their Webtrader.",
+      "category": "Platforms"
+    },
+    {
+      "question": "How to subscribe with our Daily Fix?",
+      "answer": "The client to subscribe from link here:https://cloud.go.pepperstone.com/join-daily-fix. The client should receive the daily fix email the next day after subscription (let's give it 2 days, and check the spam as well).",
+      "category": "General"
+    },
+    {
+      "question": "Does Pepperstone offer taking partials in TradingView? Because whenever I try it closes the entire trade.",
+      "answer": "In order to close a partial position in TradingView, please follow the steps below, 1- Go to Settings 2- Trading 3- Untick the 'instant orders placement' Once done, the partial close option will then show up when you press on X to close the position.",
+      "category": "Platforms"
+    },
+    {
+      "question": "Is it normal in TradingView if a client closes a position and soon after a new position is opened?",
+      "answer": "On TradingView if you open a Buy Trade it will shown to you as a Buy trade in the history. Once you closed this trade another Position will be shown next to the trade as a SELL position/trade, this is not a new trade this is just the way how is tradingview works.",
+      "category": "Platforms"
+    },
+    {
+      "question": "Can I request to change MT5 account type from Hedging to Netting?",
+      "answer": "Pepperstone offers hedging by default, we can offer netting but it needs to be approved by Market Risk and not all cases gets approved. Ideally we can ask the AM to contact the client to understand more why client wants netting. Then they will check with MR. Can also switch back Hedging if client requests.",
+      "category": "Platforms"
+    },
+    {
+      "question": "Can I move my actual shares currently being hold at other Broker to Pepperstone?",
+      "answer": "No, Pepperstone only offer CFDs, which is trading the movement of each instrument/symbol.",
+      "category": "About Pepperstone"
+    },
+    {
+      "question": "Can client connect our platform to Optuma, is this feature available for our platforms?",
+      "answer": "CS should raise an OPs ticket to get the confirmation from them, Optuma request needs to be reviewed by the OPs individually. Note: Optuma is a Technical Analysis Software for the Modern Trader and Analyst, client may need to connect his charting program Optuma to get live data and requires the server login and password for the Pepperstone server.",
+      "category": "Platforms"
+    },
+    {
+      "question": "Can I run two MT5 instances, one on production and one on Demo account?",
+      "answer": "Client may refer instruction here: How clients can set up multiple instances of MT4/MT5 in this video How To Install MT4 And Start Trading.",
+      "category": "Platforms"
+    },
+    {
+      "question": "Is the segregated account in my name? If the account is not under my name what protects it from being in a pool of money in case something happens where many people make a claim? How can I guarantee that I could salvage my own money?",
+      "answer": "All client funds are held in segregated client trust accounts to ensure the security of client funds in the unlikely event of default. We hold these funds separate to our own, and we don't use these to fund our operations. It's not on the client's name, if the client goes to the funding page and selects bank wire they can see the beneficiary bank account details. The client protections depends on the client's regulation, you can check up to what amount the client is protected based on their regulation here Regulated offices. Eg. If it's a CYSEC client they have a compensation scheme up to 20k euros. CMA and SCB don't have compensation schemes, etc. It's normal for some clients to be very cautious about their money and protections when they invest and ask such questions. You should be careful when it seems like they are trying to avoid money laundering laws though.",
+      "category": "Account"
+    },
+    {
+      "question": "What is the underlaying currency of a specific instrument on your platform? (eg. Natgas, etc.)",
+      "answer": "Client probably means the currency in which the value of the instrument is measured. They can check in specification section on the platform.",
+      "category": "Trading"
+    },
+    {
+      "question": "Market data is fed into MT5 is it Tick Volume or Real Volume?",
+      "answer": "It's Tick Volume.",
+      "category": "Platforms"
+    },
+    {
+      "question": "Can I know condition to open demo Account with API trading? I think about trading strategy and coding bots to help to do that and testing.",
+      "answer": "FIX access is generally reserved for institutional level accounts, such as brokerage clearing and wealth capital management firms. We can work with you if you are a high volume trader, corporate entity or trading firm, such as a broker who is looking for clearing services or a platform provider who is looking to offer a platform to clients for trading. We can provide a FIX API for clients that are currently trading at least AUD 250,000,000 (2500 lots) in notional volume per month. You can contact premium@pepperstone.com if you feel you qualify for this service. Another option to consider is the API feature offered by Spotware and which is built into their cTrader platform. This may be more appropriate for you if you are a retail trader and if you do not meet Pepperstone's FIX API volume requirement mentioned above.",
+      "category": "Trading"
+    },
+    {
+      "question": "Can client internal transfer between normal trading accounts and MAM slave accounts?",
+      "answer": "Cannot, MAM slave account will be restricted internal transfer function.",
+      "category": "Account"
+    },
+    {
+      "question": "What information is needed for delayed USDT deposits?",
+      "answer": "For delayed USDT deposits, CS needs to collect the following information to escalate to Payment: 1. Trading account, 2. Preference (if any), 3. TxID/HashID, 4. Receipt of transfer (external link/screenshot from Tronscan cannot be accepted).",
+      "category": "Deposit"
+    },
+    {
+      "question": "What should I do if my first PayPal deposit is not reflected?",
+      "answer": "When clients make their first PayPal deposit, it will not auto-reflect as we need to verify the client. CS needs to collect the following info to escalate to Payment: 1. Trading account to add fund in, 2. Preference (if any), 3. PayPal profile full name, 4. Receipt of transfer.",
+      "category": "Deposit"
+    },
+    {
+      "question": "How do I handle delayed deposits for other payment methods?",
+      "answer": "For delayed deposits using other methods, CS needs to collect the following information to escalate to Payment: 1. Trading account, 2. Preference (if any), 3. Deposit/Funding method, 4. Receipt of transfer (external link/screenshots cannot be accepted).",
+      "category": "Deposit"
+    },
+    {
+      "question": "What information is needed to escalate delayed withdrawals?",
+      "answer": "For delayed withdrawals, CS needs to collect the following information to escalate to Payment: 1. Trading account, 2. Preference (if any), 3. Date & Time requested withdrawal.",
+      "category": "Withdrawal"
+    },
+    {
+      "question": "What information is required to investigate slippage or high/wide spread issues?",
+      "answer": "For slippage or high/wide spread issues, CS needs to collect the following information to escalate to TI/Complaint team: 1. Trading account, 2. Trade Ticket Number(s), 3. The issue with Ticket Number(s), 4. Screenshots/Videos showing the issue (if any), 5. Expectation of client (if any).",
+      "category": "Trade Investigation"
+    },
+    {
+      "question": "How should I report a potentially hacked account or unauthorized trades?",
+      "answer": "For potentially hacked accounts or unauthorized trades, collect the following information to escalate to TI/Complaint team: 1. Trading account, 2. Trade Ticket Number(s), 3. The issue with Ticket Number(s), 4. Period of time that client suspects got hacked/had unauthorized trades took place, 5. If client used to share credential to anyone, 6. Screenshots/Videos showing the issue (if any), 7. Expectation of client (if any).",
+      "category": "Security"
+    },
+    {
+      "question": "What information is needed to report technical or system issues?",
+      "answer": "For technical or system issues, CS needs to collect the following information to escalate to TI/Complaint team: 1. Trading account, 2. Trade Ticket Number(s), 3. Trading platform, 4. The issue description, 5. Screenshots/Videos showing the issue (if any), 6. Expectation of client (if any).",
+      "category": "Platforms"
+    },
+    {
+      "question": "What's the process for negative balance waiver requests?",
+      "answer": "For negative balance waiver requests, CS needs to collect the following information to escalate to Market Risk team: 1. Trading account, 2. Negative balance amount, 3. First time request?, 4. If no, the accumulative negative balance amount.",
+      "category": "Account"
+    },
+    {
+      "question": "What information is needed from clients who want to become an IB?",
+      "answer": "For clients who want to become an IB, CS needs to collect the following information to share with Sales: 1. Name, 2. Email used to register with Pepperstone (if any), 3. Phone number, 4. Convenient time frame for discussion (office hours).",
+      "category": "Partners"
+    },
+    {
+      "question": "How do I link an account to an IB rebate scheme?",
+      "answer": "To link an account to an IB rebate scheme, CS needs to collect the following information to share with Partner: 1. Name, 2. Request type: link whole profile/specific trading account(s), 3. Trading account(s), 4. HOID/IB name.",
+      "category": "Partners"
+    },
+    {
+      "question": "What information is needed for account statement issues?",
+      "answer": "For account statement issues, CS needs to collect the following information to escalate to Operation team: 1. Trading Account number, 2. Screenshot of account statement, 3. Description of the issue.",
+      "category": "Account"
+    },
+    {
+      "question": "How can I get information about trading platform features?",
+      "answer": "For information requests about trading platform features, CS needs to collect: 1. Trading account number, 2. Trading platform, 3. Functions or features to check (e.g., DOM for cTrader pricing level 2), 4. Screenshot or example of functions, features, or data to check.",
+      "category": "Platforms"
+    },
+    {
+      "question": "What's needed to request additional trading accounts?",
+      "answer": "Due to Risk flags, client will not be able to create additional accounts. CS needs to collect the following information to escalate to Operation/Market Risk team: 1. Trading Platforms, 2. Account Types, 3. Leverage, 4. Trading Account Name (optional), 5. Currencies.",
+      "category": "Account"
+    },
+    {
+      "question": "What should I do if I have issues with swap/commission rates or charges?",
+      "answer": "CS is able to check swap/commission rate and calculate swap charge for client. However, if there's a scenario where we are unsure of the result that we calculate and the result differs from the amount on trading platform, CS needs to collect: 1. Trading account number, 2. Trade ID/Order ID.",
+      "category": "Trading"
+    },
+    [
+      {
+        "question": "When I enter my email to register new account, there's message showing 'we could not register this email address'?",
+        "answer": "The client is likely to have already registered an account with this email. The CSA should ask the client for their email address and check the Admin Portal to see if the account exists. If found, please advise the client as follow: 'Thank you for waiting, upon checking you have registered an account with this email already. Could you please try to login with this email address or proceed to reset your password for you to be able to access to your Pepperstone account?'",
+        "category": "New Registration"
+      },
+      {
+        "question": "In some cases, clients may not reach the deposit page due to an unknown glitch",
+        "answer": "CS should first attempt to reproduce and troubleshoot the issue before escalating it to the Payment/IT team. Often, these troubleshooting steps can resolve the glitch without the need for further escalation. 1. Collect all needed information: Trading account number, Deposit method, Screenshot/Error message pop-up. 2. Reproduce the issue from CS's SCA using the same method. If no issue is found, CS can guide the client through basic troubleshooting steps: Re-login, Re-connect the internet, Update application, Try incognito window, Try different devices. 3. If the issue persists on CS's side: escalate it to the Payments Operations Team. 4. The Payments team will further investigate the issue and provide advice to CS.",
+        "category": "Issue Encountered During the Deposit"
+      },
+      {
+        "question": "When click 'Confirm' the withdrawal email, it does not bring client to anywhere?",
+        "answer": "If client is using Pepperstone app/mobile phone: Clear/remove the opening apps/browser's tabs, Switch to use website version of SCA, not application, Switch to use PC/laptop if the issue persists. If client is using PC/laptop: Clear cache, cookers, browser history, Change to another browser.",
+        "category": "Confirm Withdrawal"
+      },
+      {
+        "question": "Client could not find 'Pepperstone' from Trading Panel on iOS app",
+        "answer": "As TradingView disabled the show more option, workaround we can provide to the client is: Login to TradingView in web browser or desktop app, Find Pepperstone broker and mark it as a favorite, After that Pepperstone should appear in the the list on iOS.",
+        "category": "Connect SCA with TradingView"
+      },
+      {
+        "question": "Client could not receive email from 'noreply@tradingview.com' to connect TradingView with Pepperstone",
+        "answer": "Client may need to whitelist noreply@tradingview.com, following steps for their email provider. For Gmail: Log in to your Gmail account, Click the Settings gear icon and select See all settings, Navigate to Filters and Blocked Addresses and select Create a new filter, Enter the emails or domains you want to add to the Gmail whitelist into the From section, Click Create filter to confirm, Put a mark next to Never send it to Spam, and Click Create filter again to save settings. For Gmail mobile app: Open the Gmail app, Navigate to Spam or Junk folder, Click on the message you wish to view, Select Report not spam. If client still didn't get these emails, we will escalate further.",
+        "category": "Connect SCA with TradingView"
+      },
+      {
+        "question": "Client could not receive emails (Email Statements, Margin Call, Price Alert, etc.) from 'noreply@ctrader.com'",
+        "answer": "Client may need to whitelist noreply@ctrader.com, following steps for their email provider. For Gmail: Log in to your Gmail account, Click the Settings gear icon and select See all settings, Navigate to Filters and Blocked Addresses and select Create a new filter, Enter the emails or domains you want to add to the Gmail whitelist into the From section, Click Create filter to confirm, Put a mark next to Never send it to Spam, and Click Create filter again to save settings. For Gmail mobile app: Open the Gmail app, Navigate to Spam or Junk folder, Click on the message you wish to view, Select Report not spam. If client still didn't get these emails, we will escalate further.",
+        "category": "Receive emails from cTrader"
+      },
+      {
+        "question": "Cannot Log In - Page Not Loading",
+        "answer": "Regarding the issue about logging into your account, try these initial troubleshooting steps: If using the application, close and reopen it or restart your device. Check for updates to the application or reinstall it to use the latest version. Verify your internet connection, toggle it off and on, or connect to Wi-Fi for a more stable connection. Try accessing your account through a mobile web browser or another device. For web browsers, clear browsing history, delete cache and cookies, and use InPrivate or Incognito mode. If you still cannot log in after following these steps, reply with details, including screenshots or videos, so we can coordinate with the relevant team to assist you further.",
+        "category": "Logging into your Pepperstone account (SCA)"
+      },
+      {
+        "question": "Unable to Log In to cTrader Because Client Has Not Set Up Password for the First Time",
+        "answer": "You can download the cTrader platform from the following link: cTrader Download iOS, Android & Windows | Pepperstone and follow these steps: 1. To log into cTrader, you need to set your password by yourself. Enter the email registered with Pepperstone and click on 'Reset Password.' 2. You will receive an email titled [ACTION REQUIRED] Set cTrader ID password from cTrader. In the email, there will be a green button labeled 'Generate Password.' Click on this button to set your new password. 3. Follow the steps to set your password. Once completed, you can use the email and password you set to log into your cTrader account and start trading.",
+        "category": "Logging into cTrader"
+      },
+      {
+        "question": "Forgot password to Log In to cTrader",
+        "answer": "Setting a New Password to Log In to cTrader: 1. You can set a new password for your cTrader account by visiting the link 'Reset Your Password.' Enter the email registered with Pepperstone and click on 'Reset Password.' 2. You will receive an email titled Request to Reset Your cTrader ID Password from cTrader. In the email, there will be a green button labeled 'Reset Password.' Click on this button to set your new password. 3. Follow the steps to set your password. Once completed, you can use your email and new password to log into your cTrader account.",
+        "category": "Setting a New Password to Log In to cTrader"
+      },
+      {
+        "question": "Unable to find Pepperstone in Broker list on iOS mobile application",
+        "answer": "If you are using the TradingView application on your mobile device, due to application limitations, you cannot directly search for Broker Pepperstone. However, you can follow these steps to add our broker to your favorites for easy connection and able to find our Broker on the mobile application: 1. Log in to TradingView through a web browser: Authentication — TradingView 2. Click on the three-line menu bar and go to Products, then select Supercharts. 3. Click on the top left corner (your profile name) and select Connect to broker. Go to All brokers and search for the Pepperstone symbol. 4. Click the star icon at the top right corner of the Pepperstone symbol to add it to your favorites for easier connection next time. 5. Close and reopen the TradingView application on your mobile device and connect. You will find the Pepperstone broker option you added to your favorites.",
+        "category": "Connecting Broker Pepperstone with TradingView Platform"
+      },
+      {
+        "question": "Clicked Withdrawal Confirmation via Email but Unsuccessful",
+        "answer": "Regarding the issue about processing a withdrawal, try these initial troubleshooting steps: 1. Check your internet connection, toggle it off and on, or connect to Wi-Fi for a more stable connection. 2. Try accessing Pepperstone website through a mobile web browser or another device. 3. Additional recommendations for using a web browser include clearing your browsing history, deleting cache and cookies, and using InPrivate or Incognito mode (Shortcut Ctrl+Shift+N). If you have followed these steps and still cannot confirm the withdrawal, please reply with details, including screenshots or videos, so we can coordinate with the relevant team to assist you further.",
+        "category": "Unable to Confirm Withdrawal via Email"
+      },
+      {
+        "question": "There's pop-up message Password already updated but still unable to login with new password.",
+        "answer": "Regarding the issue about unable to login to trading account MT4/5 with updated password, try these initial troubleshooting steps: 1. Try accessing Pepperstone website through a different web browser or another device. 2. Recommend clearing your browsing history, deleting cache and cookies, and using InPrivate or Incognito mode (Shortcut Ctrl+Shift+N) 3. Login to your Pepperstone account and your email again and perform to reset new password. If your password has been changed successfully, you will find the pop-up message. If you have followed these steps and still cannot confirm the withdrawal, please reply with details, including screenshots or videos, so we can coordinate with the relevant team to assist you further.",
+        "category": "Unable to reset trading account password MT4/5"
+      }
+    ]
   ]
 }
